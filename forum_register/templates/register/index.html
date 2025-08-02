@@ -1,0 +1,8 @@
+<form method="post">
+  {% csrf_token %} {{ Register_form }}
+  <input type="submit" value="Submit" name="register" />
+</form>
+<form method="post">
+  {% csrf_token %} {{ Login_form }}
+  <input type="submit" value="Submit" name="login" />
+</form>
