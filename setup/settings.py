@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 AUTH_USER_MODEL = 'forum_users.CustomUser'
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'forum_register',
     "forum_users",
+    "forum_posts",
+    "taggit",
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+TAGGIT_CASE_INSENSITIVE = True
