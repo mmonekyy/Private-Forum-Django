@@ -1,0 +1,27 @@
+[
+  {
+    "user_type": 1,
+    "username": "regular_user",
+    "password": "regular_user"
+  },
+  {
+    "user_type": 2,
+    "username": "vip_user",
+    "password": "vip_user"
+  },
+  {
+    "user_type": 3,
+    "username": "supervip_user",
+    "password": "supervip_user"
+  },
+  {
+    "user_type": 4,
+    "username": "moderator_user",
+    "password": "moderator_user"
+  },
+  {
+    "user_type": 5,
+    "username": "head_moderator_user",
+    "password": "head_moderator_user"
+  }
+]
