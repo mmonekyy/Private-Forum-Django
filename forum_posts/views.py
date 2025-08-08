@@ -7,10 +7,10 @@ from .models import Post
 
 def print_post(request):
     if request.user.is_authenticated:
-        print('cwel')
+        user_posts = Post.objects.filter(Author=request.user)
     else:
         return redirect("/register/")
-    return HttpResponse("See działa")
+    return render(request,"forum_posts/print.html",{"user_posts":user_posts})
 
 def create_post(request):
     if request.user.is_authenticated:
