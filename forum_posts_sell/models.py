@@ -5,7 +5,7 @@ from taggit.managers import TaggableManager
 # Create your models here.
 # Dospiać zeby w kay wards nie przekrawczało jakiej stam liczy znaków zeby jeden kayward tego nie robił 
 # To do views
-class Post(models.Model):
+class sell_post(models.Model):
     Title = models.CharField(max_length=100)
     tags = TaggableManager()
     Text = models.TextField(max_length=5000)
@@ -16,5 +16,5 @@ class Post(models.Model):
         APPROVED = 3,'approved'
     Post_status = models.CharField(choices=Status,default=1)
     Price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    Category = models.ForeignKey(category_choices,on_delete=models.CASCADE)
+    #Category = models.ForeignKey(category_choices,on_delete=models.CASCADE)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
