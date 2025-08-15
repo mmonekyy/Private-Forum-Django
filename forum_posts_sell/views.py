@@ -15,7 +15,7 @@ def print_post(request):
 def create_post(request):
     if request.user.is_authenticated:
         if request.method =="POST":
-            form = Create_Form(request.POST)
+            form = Create_Form(request.POST)    
             if form.is_valid():
                 Title = form.cleaned_data["title"]  
                 Tags = form.cleaned_data["tags"]

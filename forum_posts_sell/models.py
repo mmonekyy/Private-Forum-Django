@@ -14,7 +14,7 @@ class sell_post(models.Model):
         PENDING_REVIEW = 1, 'pending_review'
         TO_EDIT = 2, 'to edit'
         APPROVED = 3,'approved'
-    Post_status = models.CharField(choices=Status,default=1)
+    Post_status = models.IntegerField(choices=Status,default=1)
     Price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     #Category = models.ForeignKey(category_choices,on_delete=models.CASCADE)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
