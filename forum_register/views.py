@@ -4,6 +4,8 @@ from forum_users.models import CustomUser
 from .models import Keys
 from django.contrib.auth import login, authenticate
 from django.views.decorators.http import require_GET
+import logging
+logger = logging.getLogger(__name__)
 # Create your views here.
 
 def register(request):
@@ -18,14 +20,16 @@ def register(request):
                 if not CustomUser.objects.filter(username=username).exists() and Keys.objects.filter(key=key).exists() and password == password2:
                     CustomUser.objects.create_user(username=username,password=password)
                     Keys.objects.filter(key=key).delete()
-                    print("Create Account")
                     user = authenticate(request,username=username,password=password)
                     if user:
                         login(request, user)
                 elif CustomUser.objects.filter(username=username).exists():
-                    print("username exist")
-                else:
-                    print("invalid")
+                    logger.info("username exist")
+                elif not Keys.objects.filter(key=key).exists():
+                    logger.info("bad key")
+                elif password != password2:
+                    logger.info("passwords do not match")
+
         if 'login' in request.POST:
             login_form = LoginForm(request.POST)
             if login_form.is_valid():

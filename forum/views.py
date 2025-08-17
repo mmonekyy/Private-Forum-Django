@@ -5,8 +5,9 @@ from django.shortcuts import redirect
 def forum_main(request):
     if request.user.is_authenticated:
         if request.user.is_regular_user():
-            return HttpResponse("CWEL")
+            return HttpResponse("Regular user")
         else:
-            return HttpResponse("Gówno")
+            return HttpResponse("other user")
     else:
         return redirect("/register/")
+    
