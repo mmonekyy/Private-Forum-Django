@@ -3,6 +3,10 @@
 {{user_post.Title}}
 </br>
 {{user_post.Text}}
-</section>
+</br>
+<form method="post" action="{% url 'posts_sell:delete_post' user_post.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+</form></section>
 </br></br>  
 {% endfor %}

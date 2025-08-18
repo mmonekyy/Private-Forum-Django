@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import Create_Form
 from .models import sell_post
 from .support_function_views import check_user_type
+from django.utils import timezone
 # Create your views here.
 
 def print_post(request):
@@ -15,7 +16,7 @@ def print_post(request):
 
 def create_post(request):
     if request.user.is_authenticated:
-        user_check_result = check_user_type(request)
+        user_check_result = check_user_type(request,sell_post, timezone.now(), HttpResponse)
         if user_check_result:  
             return user_check_result
         if request.method =="POST":
@@ -59,7 +60,12 @@ def edit_post(request, id):
 
 def delete_post(request, id):
     if request.user.is_authenticated:
-        print('cwel')
+        if request.method == "POST":
+            post = sell_post.objects.filter(id=id, Author=request.user)
+            if post.exists():
+                post.delete()
+                return redirect('posts_sell:print_post')
+            else:
+                return HttpResponse('Post not found or you are not the author.')
     else:
         return redirect("/register/")
-    return HttpResponse(f'delete działa {id}')
