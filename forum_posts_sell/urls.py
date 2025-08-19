@@ -5,7 +5,7 @@ app_name = 'posts_sell'
 
 urlpatterns = [
     path('',print_post, name='print_post'),
-    path('create/',(create_post), name='create'),
-    path('edit/<int:id>/',edit_post),
+    path('create/',create_post, name='create_post'),
+    path('edit/<int:id>/',edit_post,name='edit_post'),
     path('delete/<int:id>/',delete_post, name='delete_post'),
 ]
