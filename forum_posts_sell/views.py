@@ -16,9 +16,9 @@ def print_post(request):
 
 def create_post(request):
     if request.user.is_authenticated:
-        """user_check_result = check_user_type(request,sell_post, timezone.now(), HttpResponse)
+        user_check_result = check_user_type(request,sell_post, timezone.now(), HttpResponse)
         if user_check_result:  
-            return user_check_result"""
+            return user_check_result
         print(request.user)
         if request.method =="POST":
             print(request.user)
