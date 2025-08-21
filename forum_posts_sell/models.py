@@ -2,9 +2,13 @@ from django.db import models
 from forum_users.models import CustomUser
 from forum.models import category_choices
 from taggit.managers import TaggableManager
+from django.utils import timezone
 # Create your models here.
 # Dospiać zeby w kay wards nie przekrawczało jakiej stam liczy znaków zeby jeden kayward tego nie robił 
 # To do views
+
+def get_post_life():
+    return (timezone.now() + timezone.timedelta(days=7)).date()
 class sell_post(models.Model):
     Title = models.CharField(max_length=100)
     tags = TaggableManager()
@@ -16,5 +20,6 @@ class sell_post(models.Model):
         APPROVED = 3,'approved'
     Post_status = models.IntegerField(choices=Status,default=1)
     Price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    Post_life = models.DateField(default=get_post_life)
     #Category = models.ForeignKey(category_choices,on_delete=models.CASCADE)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)

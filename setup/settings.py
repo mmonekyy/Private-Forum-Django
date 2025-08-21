@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     "forum_users",
     "forum_posts_sell",
     "taggit",
-
+    "django_apscheduler",
 ]
 
 MIDDLEWARE = [
