@@ -100,3 +100,21 @@ def delete_post(request, id):
                 return HttpResponse('Post not found or you are not the author.')
     else:
         return redirect("/register/")
+
+def marketplace(request):
+    if request.user.is_authenticated:
+        Posts = sell_post.objects.all().order_by('Add_date')
+        return render(request, "forum_posts/marketplace.html", {"Posts": Posts})
+    else:
+        return redirect("/register/")
+
+def marketplace_one_product(request, id):
+    if request.user.is_authenticated:
+        Post = sell_post.objects.filter(id=id).get()
+        print(Post)
+        if Post:
+            return render(request, "forum_posts/marketplace_one_product.html", {"Post": Post})
+        else:
+            return HttpResponse('Post not found.')
+    else:
+        return redirect("/register/")

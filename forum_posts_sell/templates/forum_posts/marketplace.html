@@ -1,0 +1,12 @@
+{% for Post in Posts%}
+<section>
+  {{ Post.Title }} <br />
+  {{ Post.Text|truncatechars:7 }} <br />
+  {{Post.Price}} <br />
+  {{Post.Add_date|date:"d/m/Y" }}<br />
+  <input type="button" value="View Details" onclick="" />
+  <br /><br />
+</section>
+{% empty %}
+<h3>No Products Available</h3>
+{% endfor %}
