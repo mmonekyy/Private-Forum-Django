@@ -3,3 +3,6 @@
 {{Post.Price}}
 {{Post.Add_date}} 
 {{Post.Post_life}}
+<a href="{% url 'posts_sell:buy_product' Post.id %}">
+  <button type="button">Buy</button>
+  </a>

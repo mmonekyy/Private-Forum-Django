@@ -29,7 +29,7 @@ class CustomUser(AbstractUser):
         SVIP = 3, 'Super VIP'
         MOD = 4, 'Moderator'
         HMOD = 5, 'Head Moderator'
-    
+    user_money = models.IntegerField(default=0)
     user_type = models.IntegerField(choices=UserType.choices , default=UserType.USER)
     objects = CustomUserManager()
     USERNAME_FIELD = "username"
