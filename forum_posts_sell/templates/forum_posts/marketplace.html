@@ -4,7 +4,9 @@
   {{ Post.Text|truncatechars:7 }} <br />
   {{Post.Price}} <br />
   {{Post.Add_date|date:"d/m/Y" }}<br />
-  <input type="button" value="View Details" onclick="" />
+  <a href="{% url 'posts_sell:one_product' Post.id %}">
+  <button type="button">View Details</button>
+  </a>
   <br /><br />
 </section>
 {% empty %}

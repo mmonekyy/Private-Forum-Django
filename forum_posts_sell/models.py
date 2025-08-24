@@ -8,7 +8,8 @@ from django.utils import timezone
 # To do views
 
 def get_post_life():
-    return (timezone.now() + timezone.timedelta(days=7)).date()
+    return (timezone.now() + timezone.timedelta(days=14)).date()
+
 class sell_post(models.Model):
     Title = models.CharField(max_length=100)
     tags = TaggableManager()
@@ -23,3 +24,26 @@ class sell_post(models.Model):
     Post_life = models.DateField(default=get_post_life)
     #Category = models.ForeignKey(category_choices,on_delete=models.CASCADE)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+
+class buyed_item(models.Model):
+    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    Text = models.TextField(max_length=5000, default="")
+
+
+# to do
+class opinion(models.Model):
+    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    Add_date = models.DateTimeField(auto_now_add=True)
+    class Rate(models.IntegerChoices):
+        ONE = 1, '1'
+        TWO = 2, '2'
+        THREE = 3,'3'
+        FOUR = 4,'4'
+        FIVE = 5,'5'
+    Rate = models.IntegerField(choices=Rate,default=5)
+
+class user_bought_items(models.Model):
+    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    User = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    Add_date = models.DateTimeField(auto_now_add=True)
