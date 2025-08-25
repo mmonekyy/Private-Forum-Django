@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import Create_Form
 from .models import sell_post , buyed_item , user_bought_items
 from .support_function_views import check_user_type
+from forum_users.models import CustomUser
 from django.utils import timezone
 
 def print_post(request):
@@ -45,7 +46,7 @@ def create_post(request):
                 post = sell_post.objects.create(Title=Title,Text=Message,Author=request.user, Price=Price)
                 tags_list = [tag.strip() for tag in Tags.split(',')]
                 post.tags.set(tags_list)
-                buyed_item.objects.create(foring_key=post, Text=Item)
+                buyed_item.objects.create(foring_key_sell_post=post, Text=Item)
                 return redirect("posts_sell:print_post")
         else:
             form = Create_Form()
@@ -56,7 +57,7 @@ def create_post(request):
 def edit_post(request, id):
     if request.user.is_authenticated:
         Post_user = sell_post.objects.filter(id=id, Author=request.user)
-        Item_fg = buyed_item.objects.filter(foring_key=id)
+        Item_fg = buyed_item.objects.filter(foring_key_sell_post=id)
         if Post_user.exists():
             Post_info = Post_user.get()
             Title = Post_info.Title
@@ -135,10 +136,13 @@ def buy_product(request, id):
         if Post:
             if request.user == Post.Author:
                 return HttpResponse('You cannot buy your own product.')
+            if user_bought_items.objects.filter(foring_key_buy_item=Post, User=request.user):
+                return HttpResponse('You have already purchased this product.')
             if request.user.user_money >= Post.Price:
                 request.user.user_money -= Post.Price
                 request.user.save()
-                user_bought_items.objects.create(foring_key=Post, User=request.user)
+                user_bought_items.objects.create(foring_key_buy_item=Post, User=request.user)
+                CustomUser.objects.filter(id=Post.Author.id).update(user_money=Post.Author.user_money + Post.Price)
                 return redirect("posts_sell:marketplace")
             else:
                 return HttpResponse('Insufficient funds to complete the purchase.')

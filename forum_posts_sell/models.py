@@ -26,13 +26,14 @@ class sell_post(models.Model):
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
 
 class buyed_item(models.Model):
-    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    foring_key_sell_post = models.ForeignKey(sell_post,on_delete=models.CASCADE)
     Text = models.TextField(max_length=5000, default="")
 
 
 # to do
+
 class opinion(models.Model):
-    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    foring_key_buy_item = models.ForeignKey(sell_post,on_delete=models.CASCADE)
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     Add_date = models.DateTimeField(auto_now_add=True)
     class Rate(models.IntegerChoices):
@@ -44,6 +45,6 @@ class opinion(models.Model):
     Rate = models.IntegerField(choices=Rate,default=5)
 
 class user_bought_items(models.Model):
-    foring_key = models.ForeignKey(sell_post,on_delete=models.CASCADE)
+    foring_key_buy_item = models.ForeignKey(sell_post,on_delete=models.CASCADE)
     User = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     Add_date = models.DateTimeField(auto_now_add=True)
