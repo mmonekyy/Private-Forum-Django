@@ -8,4 +8,5 @@ urlpatterns = [
     path('Marketplace/',include("forum_posts_sell.urls")),
     path('AdminPanel/',include("admin_panel.urls")),
     path('Account/',include("forum_users.urls")),
+    path('Posts/',include("forum_post.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
