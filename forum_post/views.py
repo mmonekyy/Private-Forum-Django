@@ -30,14 +30,25 @@ def create(request,category_id):
     return render(request, 'forum_post/create.html',{"form": form})
 
 def edit(request, post_id):
+
     pass
 
 def delete(request, post_id):
-    pass
+    if request.user.is_authenticated:
+        post = ForumPost.objects.get(id=post_id)
+        if post.Author == request.user:
+            post.delete()
+            return redirect("/Posts/ViewOwnPosts/")
+    else:
+        return redirect("/register/")   
 
 def view_own_post(request):
-    pass
-
+    if request.user.is_authenticated:
+        own_posts = ForumPost.objects.filter(Author=request.user)
+        return render(request, 'forum_post/own_posts.html',{"own_posts": own_posts})
+    else:
+        return redirect("/register/")
+    
 def view_all_posts(request):
     pass
 
