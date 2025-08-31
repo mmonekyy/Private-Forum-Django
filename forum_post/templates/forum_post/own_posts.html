@@ -1,0 +1,11 @@
+{% for post in own_posts %}
+    <div>
+        <h2>{{ post.Title }}</h2>
+        <p>{{ post.Content }}</p>
+        <p>Last Edited: {{ post.LastEdited }}</p>
+        <a href="{% url 'edit_post' post.id %}">Edit</a>
+        <a href="{% url 'delete_post' post.id %}">Delete</a>
+    </div>
+{% empty %}
+    <p>You have not created any posts yet.</p>
+{% endfor %}
