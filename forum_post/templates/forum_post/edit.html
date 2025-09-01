@@ -1,0 +1,13 @@
+<form method="post">
+  {% csrf_token %}
+  <label>Title:</label><br>
+  <input type="text" name="title" maxlength="200" required value={{form_data.Title}}><br><br>
+
+  <label>Content:</label><br>
+  <textarea name="content" required>{{form_data.Content}}</textarea><br><br>
+
+  <label>Tags (oddzielone przecinkami):</label><br>
+  <input type="text" name="tags" maxlength="100" value={{tags}}><br><br>
+
+  <input type="submit" value="Submit">
+</form>
