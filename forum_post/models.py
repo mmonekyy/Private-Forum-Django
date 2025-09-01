@@ -19,7 +19,7 @@ class ForumPost(models.Model):
     tags = TaggableManager()    
     
     def __str__(self):
-        return self.title
+        return self.Title
 
 class Comment(models.Model):
     Post = models.ForeignKey(ForumPost,on_delete=models.CASCADE,related_name='comments')
