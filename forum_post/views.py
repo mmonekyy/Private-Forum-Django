@@ -3,6 +3,7 @@ from .forms import PostForm
 from .models import ForumPost
 from forum_users.models import CustomUser
 from django.shortcuts import redirect
+from django.utils import timezone
 
 # Create your views here.
 def create(request,category_id):
@@ -67,7 +68,10 @@ def view_own_post(request):
         return redirect("/register/")
     
 def view_all_posts(request):
-    pass
+    ForumPosts = ForumPost.objects.all().order_by('-Created_at')
+    return render(request, 'forum_post/all_posts.html',{"ForumPosts": ForumPosts})
+    
 
 def view_post(request, post_id):
-    pass
+    post = ForumPost.objects.get(id=post_id)
+    return render(request, 'forum_post/view_post.html',{"post": post})

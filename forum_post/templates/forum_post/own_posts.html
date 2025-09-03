@@ -2,7 +2,7 @@
     <div>
         <h2>{{ post.Title }}</h2>
         <p>{{ post.Content }}</p>
-        <p>Last Edited: {{ post.LastEdited }}</p>
+        <p>Last Edited: {{ post.Updated_at|date:"d/m/Y" }}</p>
         <a href="{% url 'edit_post' post.id %}">Edit</a>
         <a href="{% url 'delete_post' post.id %}">Delete</a>
     </div>
