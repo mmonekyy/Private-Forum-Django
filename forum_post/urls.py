@@ -1,14 +1,11 @@
 from django.urls import path , include
 from django.conf.urls.static import static
 from django.conf import settings
-from django.http import HttpResponse
-from .views import create , view_own_post , edit , delete 
-
-def hello(request):
-    return HttpResponse("Hello, world!")
+from .views import create , view_own_post , edit , delete ,view_all_posts, view_post
 
 urlpatterns = [
-    path('',hello),
+    path('',view_all_posts),
+    path('Post/<int:post_id>/',view_post, name='view_post'),
     path('Create/<int:category_id>/',create, name='create_post'),
     path('ViewOwnPosts/',view_own_post, name='view_own_posts'),
     path('Edit/<int:post_id>/',edit, name='edit_post'),

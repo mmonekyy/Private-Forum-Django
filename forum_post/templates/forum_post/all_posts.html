@@ -1,0 +1,5 @@
+{% for post in ForumPosts%}
+{{ post.Title }} - {{ post.Content }} - {{ post.Created_at|date:"d/m/Y H:i" }} <br>
+<a href="{% url 'view_post' post.id %}">View</a>
+<br><br>
+{% endfor %}

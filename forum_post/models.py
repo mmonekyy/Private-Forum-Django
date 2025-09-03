@@ -16,8 +16,8 @@ class ForumPost(models.Model):
     Author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     Created_at = models.DateTimeField(auto_now_add=True)
     Updated_at = models.DateTimeField(auto_now=True)
-    tags = TaggableManager()    
-    
+    tags = TaggableManager()
+
     def __str__(self):
         return self.Title
 
