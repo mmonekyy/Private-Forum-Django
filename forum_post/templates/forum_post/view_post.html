@@ -4,3 +4,13 @@
 <br>
 created by {{post.Author}}
 <br>
+<form method="post" action='comment/'>
+{% csrf_token %}
+<label>Add comment</label><br>
+<textarea name="comment" required></textarea>
+<input type="submit" value="Submit">
+</form>
+<br>
+{% for com in comments %}
+{{com.Content}} by {{com.Author}} <br>
+{% endfor %}

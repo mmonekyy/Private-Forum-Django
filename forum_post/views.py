@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import PostForm
-from .models import ForumPost
+from .models import ForumPost , Comment
 from forum_users.models import CustomUser
 from django.shortcuts import redirect
 from django.utils import timezone
@@ -68,10 +68,30 @@ def view_own_post(request):
         return redirect("/register/")
     
 def view_all_posts(request):
-    ForumPosts = ForumPost.objects.all().order_by('-Created_at')
-    return render(request, 'forum_post/all_posts.html',{"ForumPosts": ForumPosts})
-    
+    if request.user.is_authenticated:
+        ForumPosts = ForumPost.objects.all().order_by('-Created_at')
+        return render(request, 'forum_post/all_posts.html',{"ForumPosts": ForumPosts})
+    else:
+        return redirect("/register/")
 
 def view_post(request, post_id):
-    post = ForumPost.objects.get(id=post_id)
-    return render(request, 'forum_post/view_post.html',{"post": post})
+    if request.user.is_authenticated:
+        post = ForumPost.objects.get(id=post_id)
+        comment = Comment.objects.filter(Post=post)
+        return render(request, 'forum_post/view_post.html',{"post": post , "comments": comment})
+    else:
+        return redirect("/register/")
+
+def add_comment(request, post_id):
+    if request.user.is_authenticated:
+        post = ForumPost.objects.get(id=post_id)
+        if request.method == "POST":
+            test = request.POST.get('comment')
+            Comment.objects.create(
+                Post=post,
+                Author=request.user,
+                Content=test,
+            )
+            return redirect("/Posts/Post/"+str(post_id)+"/")
+    else:
+        return redirect("/register/")
