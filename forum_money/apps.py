@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ForumEventConfig(AppConfig):
+class ForumMoneyConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'forum_event'
+    name = 'forum_money'
