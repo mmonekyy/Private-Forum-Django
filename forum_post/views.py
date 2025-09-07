@@ -92,6 +92,6 @@ def add_comment(request, post_id):
                 Author=request.user,
                 Content=test,
             )
-            return redirect("/Posts/Post/"+str(post_id)+"/")
+            return redirect("view_post", post_id=post_id)
     else:
         return redirect("/register/")

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "forum_users",
     "forum_posts_sell",
     "forum_post",
+    "forum_events",
     "taggit",
     "django_apscheduler",
 
