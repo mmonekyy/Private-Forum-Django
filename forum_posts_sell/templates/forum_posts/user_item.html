@@ -1,0 +1,8 @@
+{% for item in items %}
+
+{{item.foring_key_buy_item.foring_key_sell_post.Title}}<br>
+{{item.foring_key_buy_item.Text|truncatechars:50}}<br>
+<br><br>
+{% empty %}
+you dont have items
+{% endfor %}

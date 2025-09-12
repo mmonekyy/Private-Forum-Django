@@ -120,7 +120,7 @@ def marketplace(request):
 
 def marketplace_one_product(request, id):
     if request.user.is_authenticated:
-        Post = sell_post.objects.filter(id=id).get()
+        Post = sell_post.objects.filter(id=id,Post_status=3).get()
         print(Post)
         if Post:
             money = request.user.user_money
@@ -133,15 +133,16 @@ def marketplace_one_product(request, id):
 def buy_product(request, id):
     if request.user.is_authenticated:
         Post = sell_post.objects.filter(id=id).get()
+        buyed_item_fg = buyed_item.objects.filter(foring_key_sell_post=id).get()
         if Post:
             if request.user == Post.Author:
                 return HttpResponse('You cannot buy your own product.')
-            if user_bought_items.objects.filter(foring_key_buy_item=Post, User=request.user):
+            if user_bought_items.objects.filter(foring_key_buy_item=buyed_item_fg, User=request.user):
                 return HttpResponse('You have already purchased this product.')
             if request.user.user_money >= Post.Price:
                 request.user.user_money -= Post.Price
                 request.user.save()
-                user_bought_items.objects.create(foring_key_buy_item=Post, User=request.user)
+                user_bought_items.objects.create(foring_key_buy_item=buyed_item_fg, User=request.user)
                 CustomUser.objects.filter(id=Post.Author.id).update(user_money=Post.Author.user_money + Post.Price)
                 return redirect("posts_sell:marketplace")
             else:
@@ -150,3 +151,49 @@ def buy_product(request, id):
             return HttpResponse('Post not found.')
     else:
         return redirect("/register/")
+    
+def user_items(request):
+    if request.user.is_authenticated:
+        user = request.user
+        items = user_bought_items.objects.filter(User=user).select_related("foring_key_buy_item")
+        for item in items:
+            print(item.User.username)
+            print(item.foring_key_buy_item.Text)
+            print(item.foring_key_buy_item.foring_key_sell_post.Title)
+
+        return render(request, "forum_posts/user_item.html", {"items": items})
+    else:
+        return redirect("/register/")
+
+def item_detail(request,id):
+    if request.user.is_authenticated:
+        
+        return redirect("posts_sell:user_items")
+    else:
+        return redirect("/register/")  
+
+def user_opinion_add(request):
+    if request.user.is_authenticated:
+        
+        return HttpResponse("Not implemented yet")
+    else:
+        return redirect("/register/")
+
+def user_opinion_delete(request):
+    if request.user.is_authenticated:
+        
+        return redirect("posts_sell:user_items")
+    else:
+        return redirect("/register/")
+    
+"""
+user = request.user
+        items = user_bought_items.objects.filter(User=user).select_related("foring_key_buy_item")
+        print(items)
+        buyed_item_ids = [item.foring_key_buy_item.id for item in items]
+        print(buyed_item_ids)
+        rewards = buyed_item.objects.filter(foring_key_sell_post_id__in=buyed_item_ids).select_related('foring_key_sell_post')
+        print(rewards)
+        test = {reward.foring_key_sell_post.id :reward for reward in rewards}
+        print(test)
+"""
