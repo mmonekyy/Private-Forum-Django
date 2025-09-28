@@ -7,3 +7,6 @@ class Create_Form(forms.Form):
     text = forms.CharField(label="Text", max_length=5000,widget=forms.Textarea())
     price = forms.DecimalField(label="Price", max_digits=10, decimal_places=2, initial=0.00)
     item = forms.CharField(label="Selled Item", max_length=5000,widget=forms.Textarea())
+
+class Opinion(forms.Form):
+    rate = forms.IntegerField(label="Rate", min_value=1, max_value=5)

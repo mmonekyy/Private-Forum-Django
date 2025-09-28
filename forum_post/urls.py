@@ -7,8 +7,8 @@ urlpatterns = [
     path('',view_all_posts),
     path('Post/<int:post_id>/',view_post, name='view_post'),
     path('Post/<int:post_id>/comment/',add_comment, name='comment'),
-    path('Create/<int:category_id>/',create, name='create_post'),
+    path('Create/',create, name='create_post'),
     path('ViewOwnPosts/',view_own_post, name='view_own_posts'),
-    path('Edit/<int:post_id>/',edit, name='edit_post'),
+    path('ViewOwnPosts/Edit/<int:post_id>/',edit, name='edit_post'),
     path('Delete/<int:post_id>/',delete, name='delete_post'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

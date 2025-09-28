@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import create_post , edit_post , print_post , delete_post , marketplace , marketplace_one_product , buy_product ,user_items , user_opinion_add , user_opinion_delete , item_detail
+from .views import create_post , edit_post , print_post , delete_post , marketplace , marketplace_one_product , buy_product ,user_items , item_detail
 
 app_name = 'posts_sell'
 
@@ -12,7 +12,5 @@ urlpatterns = [
     path('product/<int:id>/',marketplace_one_product, name='one_product'),
     path('buy/<int:id>/',buy_product, name='buy_product'),
     path('MyItems/',user_items, name='user_items'),
-    path('item_detail/<int:id>/',item_detail, name='item_detail'),
-    path('add_comment/<int:id>',user_opinion_add, name='user_opinion_add'),
-    path('del_comment/<int:id>',user_opinion_delete, name='user_opinion_del'),
+    path('MyItems/item_detail/<int:id>/',item_detail, name='item_detail'),
 ]

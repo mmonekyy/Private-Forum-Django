@@ -1,0 +1,10 @@
+{{item.User.username}}<br>
+{{item.foring_key_buy_item.foring_key_sell_post.Title}}<br>
+{{item.foring_key_buy_item.Text}}<br>
+
+add opinion
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Submit</button>
+</form>
