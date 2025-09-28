@@ -1,7 +1,7 @@
 {% for item in items %}
 
 {{item.foring_key_buy_item.foring_key_sell_post.Title}}<br>
-{{item.foring_key_buy_item.Text|truncatechars:50}}<br>
+your reward <a href="{% url 'posts_sell:item_detail' item.id %}">{{item.foring_key_buy_item.Text|truncatechars:50}}</a> <br>
 <br><br>
 {% empty %}
 you dont have items

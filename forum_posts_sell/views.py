@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
-from .forms import Create_Form
-from .models import sell_post , buyed_item , user_bought_items
+from .forms import Create_Form , Opinion
+from .models import sell_post , buyed_item , user_bought_items , opinion
 from .support_function_views import check_user_type
 from forum_users.models import CustomUser
 from django.utils import timezone
@@ -35,7 +35,7 @@ def create_post(request):
                     return HttpResponse('Title is too short')
                 if len(Title) > 100:
                     return HttpResponse('Title is too long')
-                if len(Tags) > 100:
+                if len(Tags) > 50:
                     return HttpResponse('Tags are too long')
                 if len(Tags) < 3:
                     return HttpResponse('Tags are too short')
@@ -80,7 +80,7 @@ def edit_post(request, id):
                         return HttpResponse('Title is too short')
                     if len(Title) > 100:
                         return HttpResponse('Title is too long')
-                    if len(Tags) > 100:
+                    if len(Tags) > 50:
                         return HttpResponse('Tags are too long')
                     if len(Tags) < 3:
                         return HttpResponse('Tags are too short')
@@ -156,44 +156,35 @@ def user_items(request):
     if request.user.is_authenticated:
         user = request.user
         items = user_bought_items.objects.filter(User=user).select_related("foring_key_buy_item")
-        for item in items:
-            print(item.User.username)
-            print(item.foring_key_buy_item.Text)
-            print(item.foring_key_buy_item.foring_key_sell_post.Title)
-
         return render(request, "forum_posts/user_item.html", {"items": items})
     else:
         return redirect("/register/")
-
-def item_detail(request,id):
-    if request.user.is_authenticated:
-        
-        return redirect("posts_sell:user_items")
-    else:
-        return redirect("/register/")  
-
-def user_opinion_add(request):
-    if request.user.is_authenticated:
-        
-        return HttpResponse("Not implemented yet")
-    else:
-        return redirect("/register/")
-
-def user_opinion_delete(request):
-    if request.user.is_authenticated:
-        
-        return redirect("posts_sell:user_items")
-    else:
-        return redirect("/register/")
     
-"""
-user = request.user
-        items = user_bought_items.objects.filter(User=user).select_related("foring_key_buy_item")
-        print(items)
-        buyed_item_ids = [item.foring_key_buy_item.id for item in items]
-        print(buyed_item_ids)
-        rewards = buyed_item.objects.filter(foring_key_sell_post_id__in=buyed_item_ids).select_related('foring_key_sell_post')
-        print(rewards)
-        test = {reward.foring_key_sell_post.id :reward for reward in rewards}
-        print(test)
-"""
+def item_detail(request, id):
+    if request.user.is_authenticated:
+        user = request.user
+        try:
+            item = user_bought_items.objects.select_related("foring_key_buy_item").get(User=user, id=id)
+            post_rate = sell_post.objects.filter(
+                buyed_item__user_bought_items__User=user,
+                buyed_item__user_bought_items__id=id
+            ).get()
+            if request.method == "POST":
+                opinionn = opinion.objects.filter(Author=user,foring_key_buy_item=post_rate)
+                print(opinionn)
+                if opinionn.exists():
+                   return HttpResponse("You added opinion")
+                form = Opinion(request.POST)
+                if form.is_valid():
+                    rate = form.cleaned_data["rate"]
+                    print(rate)
+                    if rate < 1 or rate > 5:
+                        return HttpResponse('Rate must be between 1 and 5.')
+                    opinion.objects.create(foring_key_buy_item=post_rate, Author=request.user, Rate=rate)
+            else:
+                form = Opinion()
+            return render(request, "forum_posts/item_detail.html", {"item": item, "form": form})
+        except user_bought_items.DoesNotExist:
+            return redirect("posts_sell:user_items")
+    else:
+        return redirect("/register/")

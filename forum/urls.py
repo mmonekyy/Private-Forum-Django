@@ -10,4 +10,5 @@ urlpatterns = [
     path('Account/',include("forum_users.urls")),
     path('Events/',include("forum_events.urls")),
     path('Posts/',include("forum_post.urls")),
+    path('Money/',include("forum_money.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

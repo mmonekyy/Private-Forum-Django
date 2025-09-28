@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .forms import PostForm
-from .models import ForumPost , Comment
+from .models import ForumPost , Comment , Category
 from forum_users.models import CustomUser
 from django.shortcuts import redirect
 from django.utils import timezone
-
+from django.http import HttpResponse
 # Create your views here.
-def create(request,category_id):
+def create(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = PostForm(request.POST)
@@ -14,11 +14,15 @@ def create(request,category_id):
                 title = form.cleaned_data['title']
                 content = form.cleaned_data['content']
                 tags = form.cleaned_data['tags']
+                category_form = form.cleaned_data['category']
+                category = Category.objects.filter(Name=category_form)
+                if not category.exists():
+                    return HttpResponse('Bad category')
                 Author = request.user
                 post = ForumPost.objects.create(
                     Title=title,
                     Content=content,
-                    Category_id=category_id,
+                    Category_id=category.get().id,
                     Author=Author
                 )
                 tags_list = [tag.strip() for tag in tags.split(',')]
@@ -35,15 +39,15 @@ def edit(request, post_id):
         forum_data = ForumPost.objects.filter(id=post_id, Author=request.user).get()
         if not forum_data:
             return redirect("/Posts/ViewOwnPosts/")
-        tags = forum_data.tags.all()
-        tags= ','.join([tag.name for tag in tags])
+        tags = ','.join([tag.name for tag in forum_data.tags.all()])
         if request.method == 'POST':
-            form = PostForm(request.POST)
-            if form.is_valid():
-                forum_data.Title = form.cleaned_data['title']
-                forum_data.Content = form.cleaned_data['content']
-                tags = form.cleaned_data['tags']
-                tags_list = [tag.strip() for tag in tags.split(',')]
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            tags_str = request.POST.get('tags', '')
+            if title and content:
+                forum_data.Title = title
+                forum_data.Content = content
+                tags_list = [tag.strip() for tag in tags_str.split(',') if tag.strip()]
                 forum_data.tags.set(tags_list)
                 forum_data.save()
                 return redirect("/Posts/ViewOwnPosts/")
