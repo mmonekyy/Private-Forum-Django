@@ -5,9 +5,6 @@ class RegisterForm(forms.Form):
     password = forms.CharField(label="Password", max_length=100,required=True,widget=forms.PasswordInput)
     password2 = forms.CharField(label="Password", max_length=100,required=True,widget=forms.PasswordInput)
     key = forms.CharField(label="key", max_length=255,required=True)
-    """if password != password2:
-        print('Bad pass')"""
-
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", max_length=100,required=True)
     password = forms.CharField(label="Password", max_length=100,required=True,widget=forms.PasswordInput)

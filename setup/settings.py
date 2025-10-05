@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     "forum_users",
     "forum_posts_sell",
     "forum_post",
-    "forum_events",
     "forum_money",
     "taggit",
     "django_apscheduler",
@@ -156,3 +155,8 @@ if 'test' in sys.argv:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': ':memory:'
     }
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    "/var/www/static/",
+]
