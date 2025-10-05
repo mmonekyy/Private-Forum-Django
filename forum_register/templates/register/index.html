@@ -1,8 +1,22 @@
+{% load static %}
+<body>
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<link rel="icon" href="{% static 'web.ico' %}" type="image/x-icon">
+<title>Register/Login</title>
+<section id = "form">
+<div id="register" style="display:none;">
 <form method="post">
   {% csrf_token %} {{ Register_form }}
-  <input type="submit" value="Submit" name="register" />
+  <input type="submit" value="Submit" name="register"  class="Submit_btn"/>
 </form>
+</div>
+<div id="login" style="display:block;">
 <form method="post">
   {% csrf_token %} {{ Login_form }}
-  <input type="submit" value="Submit" name="login" />
+  <input type="submit" value="Submit" name="login" class="Submit_btn" />
 </form>
+</div>
+<button id="btn" onclick="showform()">Register</button>
+<script src="{% static 'js/register.js' %}"></script>
+</section>
+<body>
