@@ -1,0 +1,40 @@
+#List_of_links {
+    background-color: rgba(104, 104, 104, 0.411);
+    width: 50vh;
+    margin: auto;
+    height: 5vh;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 10px;
+    transition: box-shadow 0.6s ease, transform 0.4s ease; 
+}
+
+#List_of_links ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 2vw; 
+}
+
+#List_of_links:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 100, 255, 0.75); 
+}
+
+#List_of_links li a {
+    text-decoration: none;
+    color: black;
+    padding: 0.5vh 1vw;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+
+#List_of_links li a:hover {
+    background-color: rgba(0, 100, 255, 0.75);
+    color: white;
+    border-radius: 5px;
+}
