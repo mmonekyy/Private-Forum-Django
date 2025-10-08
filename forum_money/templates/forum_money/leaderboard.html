@@ -1,3 +1,10 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/money.css' %}">
+<div id="main">
 {% for bestuser in BestUsers %}
 {{bestuser.username}} {{bestuser.user_money}}<br>
 {% endfor %}
+</div>
+{% include 'forum_money/list_of_links.html' %}

@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/list_of_links.css' %}">
+<div id="List_of_links">
+<ul>
+  <li><a href={% url 'Money' %} class="">Roll</a></li>
+  <li><a href={% url 'leaderboard' %} class="">LiderBoard</a></li>
+  <li><a href={% url 'ranks' %} class="">Ranks</a></li>
+</ul>
+</div>

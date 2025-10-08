@@ -36,6 +36,7 @@ def points(request):
     value = button_verifi(but)
     print(value)
     points_randomizer  = random.randint(0,10)
+    message = None
     if request.method == "POST" and value == True: 
         if points_randomizer  <= 5:
             money_User(0, 200,but)
@@ -45,8 +46,9 @@ def points(request):
             money_User(400, 1000,but)
     else:
         if request.method == "POST" and value == False:
-            return HttpResponse('You can press the button every hour')
-    return render(request, 'forum_money/money.html')
+            message = "You can press the button every hour"
+    return render(request, 'forum_money/money.html', {"money_win":value,"next_roll":but.get().next_roll,"current_money":CustomUser.objects.get(username=request.user).user_money
+                                                      ,"message": message,})
 
 # add paypal payments 
 def ranks(request):

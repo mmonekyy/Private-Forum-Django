@@ -1,4 +1,22 @@
+{% include 'navbar.html' %}
+{% load static %}
+<body>
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/money.css' %}">
+<div id="main">
+{% if message %}
+    <p style="color: red;">{{ message }}</p>
+{% endif %}
+<h1>Your Money {{current_money}} $<br></h1>
+{% if money_win == False%}
+<h3> Next roll available at: {{next_roll}}<h3>
+{% elif money_win == True %}
+<h3>You can roll now!<h3>
+{% endif %}
 <form method="post">
     {% csrf_token %}
-      <input type="submit" name="action" value="roll">
+      <input type="submit" class="rollbutton" name="action" value="Roll">   
 </form>
+</div>
+{% include 'forum_money/list_of_links.html' %}
+</body>
