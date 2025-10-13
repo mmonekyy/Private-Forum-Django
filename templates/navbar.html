@@ -1,7 +1,9 @@
 <navbar>
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<title>Private Forum</title>
 <link rel="icon" href="{% static 'web.ico' %}" type="image/x-icon">
+{% if request.user.user_type == 1 or request.user.user_type == 2 or request.user.user_type == 3%}
 <nav class="navbar">
     <ul>
         <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Forum</a></li>
@@ -11,3 +13,16 @@
         <li><a href="/Marketplace/" class="{% if '/Marketplace/' in request.path %}active{% endif %}">Marketplace</a></li>
     </ul>
 </nav>
+{% endif %}
+{% if request.user.user_type == 4 or request.user.user_type == 5%}
+<nav class="navbar">
+    <ul>
+        <li><a href="/" class="{% if request.path == '/' %}active{% endif %}">Forum</a></li>
+        <li><a href="/Posts/" class="{% if '/Posts/' in request.path %}active{% endif %}">Posts</a></li>
+        <li><a href="/Money/" class="{% if '/Money/' in request.path %}active{% endif %}">Money</a></li>        
+        <li><a href="/Account/" class="{% if '/Account/' in request.path %}active{% endif %}">Account</a></li>
+        <li><a href="/Marketplace/" class="{% if '/Marketplace/' in request.path %}active{% endif %}">Marketplace</a></li>
+        <li><a href="/ModPanel/" class="{% if '/ModPanel/' in request.path %}active{% endif %}">ModPanel</a></li>
+    </ul>
+</nav>
+{% endif %}

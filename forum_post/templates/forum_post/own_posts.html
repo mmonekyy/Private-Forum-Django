@@ -1,11 +1,31 @@
-{% for post in own_posts %}
-    <div>
-        <h2>{{ post.Title }}</h2>
-        <p>{{ post.Content }}</p>
-        <p>Last Edited: {{ post.Updated_at|date:"d/m/Y" }}</p>
-        <a href="{% url 'edit_post' post.id %}">Edit</a>
-        <a href="{% url 'delete_post' post.id %}">Delete</a>
-    </div>
-{% empty %}
-    <p>You have not created any posts yet.</p>
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/all_posts.css' %}">
+<main>
+{% for post in own_posts%}
+<div class="post">
+{{ post.Title }} - {{ post.Content|truncatechars:30 }} - {{ post.Created_at|date:"d/m/Y H:i" }} <br>
+Category - {{post.Category}} <br>
+<a href="{% url 'view_post' post.id %}">View Post</a><br>
+<a href="{% url 'edit_post' post.id %}">Edit Post</a>
+</div>
 {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</main>

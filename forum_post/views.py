@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from .forms import PostForm
+from .forms import PostForm , serch
 from .models import ForumPost , Comment , Category
 from forum_users.models import CustomUser
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+
 # Create your views here.
 def create(request):
     if request.user.is_authenticated:
@@ -66,15 +68,38 @@ def delete(request, post_id):
 
 def view_own_post(request):
     if request.user.is_authenticated:
-        own_posts = ForumPost.objects.filter(Author=request.user)
-        return render(request, 'forum_post/own_posts.html',{"own_posts": own_posts})
+        own_posts = ForumPost.objects.filter(Author=request.user).order_by('-Created_at')
+        paginator = Paginator(own_posts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'forum_post/own_posts.html',{"own_posts": page_obj,"page_obj": page_obj})
     else:
         return redirect("/register/")
     
 def view_all_posts(request):
     if request.user.is_authenticated:
         ForumPosts = ForumPost.objects.all().order_by('-Created_at')
-        return render(request, 'forum_post/all_posts.html',{"ForumPosts": ForumPosts})
+        form = serch(request.GET or None)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            tags = form.cleaned_data['tags']
+            title = form.cleaned_data['title'] 
+            if category:
+                Category_id = Category.objects.filter(Name=category)
+                if Category_id.exists():
+                    ForumPosts = ForumPosts.filter(Category_id=Category_id.get().id)
+            if title:
+                ForumPosts = ForumPosts.filter(Title__icontains=title)
+            if tags:
+                tags_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
+                for tag in tags_list:
+                    ForumPosts = ForumPosts.filter(tags__name__in=[tag])
+        else:
+            form = serch()
+        paginator = Paginator(ForumPosts, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'forum_post/all_posts.html',{"ForumPosts": page_obj, "form": form,"query": request.GET.copy()})
     else:
         return redirect("/register/")
 
@@ -82,7 +107,10 @@ def view_post(request, post_id):
     if request.user.is_authenticated:
         post = ForumPost.objects.get(id=post_id)
         comment = Comment.objects.filter(Post=post)
-        return render(request, 'forum_post/view_post.html',{"post": post , "comments": comment})
+        paginator = Paginator(comment, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'forum_post/view_post.html',{"post": post , "page_obj": page_obj})
     else:
         return redirect("/register/")
 
@@ -91,11 +119,8 @@ def add_comment(request, post_id):
         post = ForumPost.objects.get(id=post_id)
         if request.method == "POST":
             test = request.POST.get('comment')
-            Comment.objects.create(
-                Post=post,
-                Author=request.user,
-                Content=test,
-            )
+            Comment.objects.create(Post=post,Author=request.user,Content=test)
+            
             return redirect("view_post", post_id=post_id)
     else:
         return redirect("/register/")

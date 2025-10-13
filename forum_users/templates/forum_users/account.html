@@ -1,0 +1,30 @@
+{% include "navbar.html" %}
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/account.css' %}">
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<body>
+<main>
+    <div class="profile-container">
+        <h2>Your Profile</h2>
+        <div class="profile-card">
+            <div class="profile-row">
+                <span class="label">Username:</span>
+                <span class="value">{{ user_data.username }}</span>
+            </div>
+            <div class="profile-row">
+                <span class="label">Account Balance:</span>
+                <span class="value">{{ user_data.user_money }} PLN</span>
+            </div>
+            <div class="profile-row">
+                <span class="label">Joined on:</span>
+                <span class="value">{{ user_data.date_joined|date:"d/m/Y H:i" }}</span>
+            </div>
+            <div class="profile-row">
+                <span class="label">User Type:</span>
+                <span class="value">{{ user_data.get_user_type_display }}</span>
+            </div>
+        </div>
+    </div>
+</main>
+</body>

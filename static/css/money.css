@@ -4,13 +4,13 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  background-color: rgba(128, 128, 128, 0.253);
+  background-color: rgba(0, 0, 0, 0.6);
   color: whitesmoke;
   width: 50vh;
   padding: 20px;
   border-radius: 10px;
   margin: 20px auto; 
-  margin-top: 5%;
+  margin-top: 10vh;
 
 }
 #main:hover {
@@ -19,7 +19,9 @@
   transition: all 0.3s ease;
   
 }
-
+hr{
+  color: white;
+}
 #main .rollbutton {
   appearance: none;
   background-color: #000000;

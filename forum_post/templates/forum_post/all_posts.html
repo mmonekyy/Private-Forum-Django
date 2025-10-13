@@ -1,5 +1,45 @@
+{% include "navbar.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/all_posts.css' %}">
+<body>
+    
+<main>
+<section id ="top_menu">
+<div>
+<a href="{% url 'view_own_posts'%}">Own Posts</a>
+</div>
+<div>
+<a href="{% url 'create_post'%}">Create Post</a>
+</div>
+</section>
+<form method="get" action="." id ="search_form">
+  {{ form.as_p }}
+  <button type="submit">Szukaj</button>
+</form>
 {% for post in ForumPosts%}
-{{ post.Title }} - {{ post.Content }} - {{ post.Created_at|date:"d/m/Y H:i" }} <br>
+<div class="post">
+{{ post.Title }} - {{ post.Content|truncatechars:30 }} - {{ post.Created_at|date:"d/m/Y H:i" }} <br>
+Category - {{post.Category}} <br>
 <a href="{% url 'view_post' post.id %}">View</a>
-<br><br>
+</div>
 {% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if ForumPosts.has_previous %}
+      <a href="?{{ query.urlencode }}&page=1">&laquo; first</a>
+      <a href="?{{ query.urlencode }}&page={{ ForumPosts.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ ForumPosts.number }} of {{ ForumPosts.paginator.num_pages }}.
+    </span>
+
+    {% if ForumPosts.has_next %}
+      <a href="?{{ query.urlencode }}&page={{ ForumPosts.next_page_number }}">next</a>
+      <a href="?{{ query.urlencode }}&page={{ ForumPosts.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+</main>
+</body>

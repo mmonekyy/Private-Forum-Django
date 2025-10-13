@@ -1,5 +1,10 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/create_post.css' %}">
 <form action="" method="post">
 {% csrf_token %}
 {{form}}
 <button type="submit">Submit</button>
 </form>
+<input type="button" value="Go Back" onclick="history.back()">

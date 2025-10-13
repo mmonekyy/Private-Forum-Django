@@ -1,16 +1,49 @@
-{{post.Title}}
-<br>
-{{post.Content}}
-<br>
-created by {{post.Author}}
-<br>
-<form method="post" action='comment/'>
-{% csrf_token %}
-<label>Add comment</label><br>
-<textarea name="comment" required></textarea>
-<input type="submit" value="Submit">
-</form>
-<br>
-{% for com in comments %}
-{{com.Content}} by {{com.Author}} <br>
-{% endfor %}
+{% load static %}
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<body>
+    <main>
+        <div class="post">
+            <h2>{{ post.Title }}</h2>
+            <hr>
+            <p>{{ post.Content }}</p>
+            <p><strong>Created by:</strong> {{ post.Author }}</p>
+        </div>
+
+        <div id="comment-section">
+            <h3>Add a Comment</h3>
+            <form method="post" action="comment/">
+                {% csrf_token %}
+                <label for="comment">Your Comment:</label>
+                <textarea name="comment" required></textarea>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        {% for com in page_obj %}
+            <div class="comment">
+                {{ com.Content }}
+                <strong>— {{ com.Author }}</strong>
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </main>
+</body>

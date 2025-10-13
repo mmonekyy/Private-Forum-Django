@@ -1,0 +1,42 @@
+[
+  {
+    "Name": "Technology",
+    "Description": "Articles and resources about the latest technology trends and innovations."
+  },
+  {
+    "Name": "Health",
+    "Description": "Information about wellness, medicine, fitness, and healthy lifestyle tips."
+  },
+  {
+    "Name": "Travel",
+    "Description": "Guides, tips, and stories from around the world for travelers."
+  },
+  {
+    "Name": "Food",
+    "Description": "Recipes, restaurant reviews, and cooking inspiration for food lovers."
+  },
+  {
+    "Name": "Education",
+    "Description": "Resources, news, and advice related to learning and academic development."
+  },
+  {
+    "Name": "Business",
+    "Description": "Insights and news about entrepreneurship, finance, and corporate strategies."
+  },
+  {
+    "Name": "Sports",
+    "Description": "Updates, analysis, and stories from various sports disciplines."
+  },
+  {
+    "Name": "Entertainment",
+    "Description": "Movies, TV shows, music, and celebrity news."
+  },
+  {
+    "Name": "Science",
+    "Description": "Discoveries, research updates, and scientific breakthroughs."
+  },
+  {
+    "Name": "Lifestyle",
+    "Description": "Articles about daily life, relationships, and personal development."
+  }
+]
