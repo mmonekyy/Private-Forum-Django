@@ -1,0 +1,92 @@
+.post_detail_container {
+    width: 90%;
+    max-width: 800px;
+    margin: 5vh auto;
+    margin-top: 10vh;
+    padding: 25px 30px;
+    background-color: rgba(26, 26, 26, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    color: #f0f0f0;
+}
+
+.post_detail_container h1 {
+    font-size: 2em;
+    color: #00bfff;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.post_detail_container .post_text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.post_detail_meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-size: 0.95em;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.post_detail_meta .price {
+    font-weight: bold;
+    color: #00ffcc;
+    font-size: 1.2em;
+}
+
+.post_detail_meta .date,
+.post_detail_meta .life {
+    font-style: italic;
+    margin-right: 10px;
+}
+
+.post_detail_tags {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    font-size: 0.95em;
+    color: #bbb;
+}
+
+.post_detail_tags span {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    margin: 2px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.post_detail_container button {
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.post_detail_container button:hover {
+    background-color: #008ccc;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .post_detail_meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .post_detail_container {
+        padding: 20px;
+    }
+}

@@ -6,13 +6,51 @@ from .models import sell_post , buyed_item , user_bought_items , opinion
 from .support_function_views import check_user_type
 from forum_users.models import CustomUser
 from django.utils import timezone
+from django.core.paginator import Paginator
+from .forms import serch_Form
+
+def marketplace(request):
+    if request.user.is_authenticated:
+        Posts = sell_post.objects.filter(Post_status=3).order_by('Add_date')
+
+        form = serch_Form(request.GET or None) 
+        if form.is_valid():
+            tags = form.cleaned_data['tag']
+            title = form.cleaned_data['title'] 
+            min_price = form.cleaned_data['min_price']
+            max_price = form.cleaned_data['max_price']
+            author = form.cleaned_data['author']
+            if title:
+                Posts = Posts.filter(Title__icontains=title)
+            if tags:
+                tags_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
+                for tag in tags_list:
+                    Posts = Posts.filter(tags__name__in=[tag])
+            if min_price is not None:
+                Posts = Posts.filter(Price__gte=min_price)
+            if max_price is not None and max_price > 0:
+                Posts = Posts.filter(Price__lte=max_price)
+            if author:
+                Posts = Posts.filter(Author__username__icontains=author)
+        else:
+            form = serch_Form() 
+
+        paginator = Paginator(Posts, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, "forum_posts/marketplace.html", {"Posts": page_obj,"form":form})
+    else:
+        return redirect("/register/")
 
 def print_post(request):
     if request.user.is_authenticated:
         user_posts = sell_post.objects.filter(Author=request.user)
+        paginator = Paginator(user_posts, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
     else:
         return redirect("/register/")
-    return render(request,"forum_posts/print.html",{"user_posts":user_posts})
+    return render(request,"forum_posts/print.html",{"page_obj":page_obj,})
 
 def create_post(request):
     if request.user.is_authenticated:
@@ -39,8 +77,6 @@ def create_post(request):
                     return HttpResponse('Tags are too long')
                 if len(Tags) < 3:
                     return HttpResponse('Tags are too short')
-                if len(Item) < 10:
-                    return HttpResponse('Item is too short')
                 Message = form.cleaned_data["text"]
                 print(Title,Tags,Message,Price)
                 post = sell_post.objects.create(Title=Title,Text=Message,Author=request.user, Price=Price)
@@ -111,12 +147,6 @@ def delete_post(request, id):
     else:
         return redirect("/register/")
 
-def marketplace(request):
-    if request.user.is_authenticated:
-        Posts = sell_post.objects.filter(Post_status=3).order_by('Add_date')
-        return render(request, "forum_posts/marketplace.html", {"Posts": Posts})
-    else:
-        return redirect("/register/")
 
 def marketplace_one_product(request, id):
     if request.user.is_authenticated:
@@ -156,6 +186,9 @@ def user_items(request):
     if request.user.is_authenticated:
         user = request.user
         items = user_bought_items.objects.filter(User=user).select_related("foring_key_buy_item")
+        paginator = Paginator(items, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         return render(request, "forum_posts/user_item.html", {"items": items})
     else:
         return redirect("/register/")

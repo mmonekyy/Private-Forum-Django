@@ -1,6 +1,9 @@
+{% load static %}
+{% include "navbar.html" %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit_sell.css' %}">
 <form method="post">
   {% csrf_token %}
-  <!-- Tytuł -->
   <label for="id_title">Enter Title:</label><br />
   <input
     type="text"
@@ -11,7 +14,6 @@
     value="{{ information_table.0 }}"
   /><br /><br />
 
-  <!-- Tag -->
   <label for="id_tags">Tag:</label><br />
   <input
     type="text"
@@ -22,7 +24,6 @@
     value="{{ information_table.3|join:', ' }}"
   /><br /><br />
 
-  <!-- Tekst -->
   <label for="id_text">Text:</label><br />
   <textarea
     id="id_text"
@@ -35,7 +36,6 @@
 {{ information_table.1 }}</textarea
   ><br /><br />
 
-  <!-- Cena -->
   <label for="id_price">Price:</label><br />
   <input
     type="number"
@@ -47,7 +47,6 @@
     value="{{ information_table.2 }}"
   /><br /><br />
 
-  <!-- Przedmiot -->
   <label for="id_item">Item:</label><br />
   <textarea
     id="id_item"
@@ -58,6 +57,5 @@
     required
   >
   {{ information_table.4 }}</textarea><br /><br />
-  <!-- Przycisk -->
   <button type="submit">Submit</button>
 </form>

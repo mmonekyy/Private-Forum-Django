@@ -1,3 +1,18 @@
+{% load static %}
+{% include "navbar.html" %}
+<section id = "top_menu">
+  <a href="{% url 'posts_sell:print_post' %}">
+    My Products
+  </a>
+  <a href="{% url 'posts_sell:create_post' %}">
+    Create Product
+  </a>
+  <a href="{% url 'posts_sell:user_items' %}">
+    Buyed Items
+  </a>
+</section>
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/create_post_sell.css' %}">
 <form method="POST" action="{% url 'posts_sell:create_post' %}">
   {% csrf_token %} {{ form }}
   <input type="submit" value="Submit" />
