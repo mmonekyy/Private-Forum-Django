@@ -1,8 +1,25 @@
-{{Post.Title}} 
-{{Post.Text}} 
-{{Post.Price}}
-{{Post.Add_date}} 
-{{Post.Post_life}}
-<a href="{% url 'posts_sell:buy_product' Post.id %}">
-  <button type="button">Buy</button>
-  </a>
+{% load static %}
+{% include "navbar.html" %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/post_detail_sell.css' %}">
+
+<div class="post_detail_container">
+    <h1>{{ Post.Title }}</h1>
+    <div class="post_text">{{ Post.Text }}</div>
+    <div class="post_detail_meta">
+        <div class="price">{{ Post.Price }} PLN</div>
+        <div class="date">Posted on: {{ Post.Add_date }}</div>
+        <div class="life">Expires in: {{ Post.Post_life }} days</div>
+    </div>
+    <div class="post_detail_tags">
+        <strong>Tags:</strong>
+        {% for tag in Post.tags.all %}
+            <span>{{ tag }}</span>
+        {% empty %}
+            <span>No tags</span>
+        {% endfor %}
+    </div>
+    <a href="{% url 'posts_sell:buy_product' Post.id %}">
+        <button type="button">Buy Now</button>
+    </a>
+</div>

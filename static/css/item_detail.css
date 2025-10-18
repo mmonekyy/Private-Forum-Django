@@ -1,0 +1,115 @@
+.item-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  min-height: 100vh;
+}
+
+.item-card {
+  width: min(90%, 700px);
+  background-color: rgba(26, 26, 26, 0.85);
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 191, 255, 0.35);
+}
+
+.item-card h2 {
+  color: #00bfff;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  margin: 0;
+}
+
+.item-card .username {
+  color: #bbb;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-style: italic;
+}
+
+.item-card p {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  word-wrap: break-word;
+}
+
+.opinion-form {
+  width: min(90%, 700px);
+  background-color: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.opinion-form label {
+  color: #00bfff;
+  font-weight: 500;
+}
+
+.opinion-form textarea,
+.opinion-form input,
+.opinion-form select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  border-radius: 0.6rem;
+  color: #fff;
+  font-size: 1rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.opinion-form textarea:focus,
+.opinion-form input:focus,
+.opinion-form select:focus {
+  border-color: #00bfff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.4);
+}
+
+.opinion-form button {
+  align-self: flex-start;
+  background-color: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.opinion-form button:hover {
+  background-color: #008ccc;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 191, 255, 0.4);
+}
+
+.opinion-form button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+  .item-card,
+  .opinion-form {
+    width: 95%;
+    padding: 1rem;
+  }
+}

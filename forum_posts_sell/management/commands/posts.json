@@ -1,0 +1,443 @@
+[
+  {
+    "Title": "Walmart Coupon",
+    "tags": ["20%", "walmart", "coupon"],
+    "Text": "20% discount coupon for groceries at Walmart.",
+    "Post_status": 3,
+    "Price": "15.00",
+    "Author": 2,
+    "prize": "WALMART20OFF"
+  },
+  {
+    "Title": "MediaExpert Code",
+    "tags": ["15%", "mediaexpert", "electronics"],
+    "Text": "15% off on home appliances and TVs at MediaExpert.",
+    "Post_status": 1,
+    "Price": "25.00",
+    "Author": 3,
+    "prize": "ME15SAVE"
+  },
+  {
+    "Title": "Amazon Voucher",
+    "tags": ["10%", "amazon", "shopping"],
+    "Text": "10% discount for all purchases on Amazon.",
+    "Post_status": 2,
+    "Price": "10.00",
+    "Author": 1,
+    "prize": "AMZ10DEAL"
+  },
+  {
+    "Title": "MediaMarkt Coupon",
+    "tags": ["25%", "mediamarkt", "electronics"],
+    "Text": "25% off laptops and smartphones at MediaMarkt.",
+    "Post_status": 3,
+    "Price": "50.00",
+    "Author": 4,
+    "prize": "MM25TECH"
+  },
+  {
+    "Title": "Zalando Discount Code",
+    "tags": ["20%", "zalando", "fashion"],
+    "Text": "20% off on clothing and shoes at Zalando.",
+    "Post_status": 2,
+    "Price": "30.00",
+    "Author": 5,
+    "prize": "ZLN20STYLE"
+  },
+  {
+    "Title": "IKEA Coupon",
+    "tags": ["15%", "ikea", "home"],
+    "Text": "15% discount on furniture and home decor at IKEA.",
+    "Post_status": 1,
+    "Price": "40.00",
+    "Author": 1,
+    "prize": "IKEA15HOME"
+  },
+  {
+    "Title": "Empik Voucher",
+    "tags": ["10%", "empik", "books"],
+    "Text": "10% off on books and music at Empik.",
+    "Post_status": 2,
+    "Price": "8.00",
+    "Author": 3,
+    "prize": "EMPK10READ"
+  },
+  {
+    "Title": "RTV Euro AGD Promo",
+    "tags": ["20%", "euroagd", "electronics"],
+    "Text": "20% discount on TVs and consoles at RTV Euro AGD.",
+    "Post_status": 3,
+    "Price": "35.00",
+    "Author": 2,
+    "prize": "EURO20PLAY"
+  },
+  {
+    "Title": "Allegro Code",
+    "tags": ["10%", "allegro", "shopping"],
+    "Text": "10% off on Allegro orders above $50.",
+    "Post_status": 1,
+    "Price": "12.00",
+    "Author": 4,
+    "prize": "AL10SHOP"
+  },
+  {
+    "Title": "Decathlon Coupon",
+    "tags": ["15%", "decathlon", "sport"],
+    "Text": "15% discount on sportswear and equipment at Decathlon.",
+    "Post_status": 3,
+    "Price": "20.00",
+    "Author": 5,
+    "prize": "SPORT15DC"
+  },
+  {
+    "Title": "Apple Store Discount",
+    "tags": ["5%", "apple", "electronics"],
+    "Text": "5% off Apple devices when purchasing online.",
+    "Post_status": 2,
+    "Price": "100.00",
+    "Author": 1,
+    "prize": "APPLE5BUY"
+  },
+  {
+    "Title": "Nike Promo Code",
+    "tags": ["20%", "nike", "fashion"],
+    "Text": "20% off all running shoes at Nike Store.",
+    "Post_status": 1,
+    "Price": "25.00",
+    "Author": 2,
+    "prize": "NIKE20RUN"
+  },
+  {
+    "Title": "Samsung Voucher",
+    "tags": ["15%", "samsung", "electronics"],
+    "Text": "15% discount on Galaxy smartphones at Samsung Store.",
+    "Post_status": 3,
+    "Price": "60.00",
+    "Author": 4,
+    "prize": "SAMS15GALAXY"
+  },
+  {
+    "Title": "Lidl Coupon",
+    "tags": ["10%", "lidl", "groceries"],
+    "Text": "10% off all grocery items at Lidl.",
+    "Post_status": 2,
+    "Price": "5.00",
+    "Author": 5,
+    "prize": "LIDL10FOOD"
+  },
+  {
+    "Title": "Biedronka Discount",
+    "tags": ["15%", "biedronka", "eco"],
+    "Text": "15% off organic products at Biedronka.",
+    "Post_status": 1,
+    "Price": "7.00",
+    "Author": 3,
+    "prize": "BIEDRO15ECO"
+  },
+  {
+    "Title": "Amazon Prime Trial",
+    "tags": ["trial", "amazon", "prime"],
+    "Text": "Free 30-day Amazon Prime trial subscription.",
+    "Post_status": 3,
+    "Price": "0.00",
+    "Author": 4,
+    "prize": "AMZPRIMEFREE"
+  },
+  {
+    "Title": "Rossmann Coupon",
+    "tags": ["10%", "rossmann", "beauty"],
+    "Text": "10% discount on cosmetics and perfumes at Rossmann.",
+    "Post_status": 2,
+    "Price": "10.00",
+    "Author": 1,
+    "prize": "ROSS10BEAUTY"
+  },
+  {
+    "Title": "Spotify Promo",
+    "tags": ["music", "spotify", "subscription"],
+    "Text": "1-month free Spotify Premium for new users.",
+    "Post_status": 3,
+    "Price": "0.00",
+    "Author": 2,
+    "prize": "SPOTFREE1M"
+  },
+  {
+    "Title": "Booking.com Discount",
+    "tags": ["10%", "booking", "travel"],
+    "Text": "10% off on hotel bookings at Booking.com.",
+    "Post_status": 1,
+    "Price": "45.00",
+    "Author": 5,
+    "prize": "BOOK10TRIP"
+  },
+  {
+    "Title": "Steam Coupon",
+    "tags": ["10%", "steam", "gaming"],
+    "Text": "10% discount on PC games at Steam Store.",
+    "Post_status": 3,
+    "Price": "15.00",
+    "Author": 3,
+    "prize": "STEAM10PLAY"
+  },
+  {
+    "Title": "eBay Voucher",
+    "tags": ["15%", "ebay", "shopping"],
+    "Text": "15% off on all orders at eBay marketplace.",
+    "Post_status": 1,
+    "Price": "20.00",
+    "Author": 4,
+    "prize": "EBAY15SAVE"
+  },
+  {
+    "Title": "Adidas Discount",
+    "tags": ["20%", "adidas", "sportswear"],
+    "Text": "20% off all Adidas sneakers and apparel.",
+    "Post_status": 2,
+    "Price": "35.00",
+    "Author": 5,
+    "prize": "ADI20FIT"
+  },
+  {
+    "Title": "Netflix Offer",
+    "tags": ["subscription", "netflix", "movies"],
+    "Text": "Free 1-month Netflix subscription for new users.",
+    "Post_status": 3,
+    "Price": "0.00",
+    "Author": 1,
+    "prize": "NETFREEMONTH"
+  },
+  {
+    "Title": "Uber Ride Credit",
+    "tags": ["uber", "transport", "coupon"],
+    "Text": "$10 credit for new Uber users on their first ride.",
+    "Post_status": 2,
+    "Price": "10.00",
+    "Author": 2,
+    "prize": "UBER10RIDE"
+  },
+  {
+    "Title": "Starbucks Code",
+    "tags": ["coffee", "starbucks", "food"],
+    "Text": "Buy 1 get 1 free coffee at Starbucks.",
+    "Post_status": 3,
+    "Price": "8.00",
+    "Author": 3,
+    "prize": "STAR2X1"
+  },
+  {
+    "Title": "PlayStation Store Discount",
+    "tags": ["gaming", "playstation", "sony"],
+    "Text": "15% off on PS5 and PS4 games.",
+    "Post_status": 1,
+    "Price": "20.00",
+    "Author": 4,
+    "prize": "PS15GAMES"
+  },
+  {
+    "Title": "Xbox Game Code",
+    "tags": ["xbox", "microsoft", "gaming"],
+    "Text": "Get $10 off Xbox Game Pass subscriptions.",
+    "Post_status": 3,
+    "Price": "10.00",
+    "Author": 5,
+    "prize": "XBOX10PLAY"
+  },
+  {
+    "Title": "Shein Promo",
+    "tags": ["fashion", "shein", "style"],
+    "Text": "25% discount on all clothing orders at Shein.",
+    "Post_status": 2,
+    "Price": "25.00",
+    "Author": 1,
+    "prize": "SHEIN25"
+  },
+  {
+    "Title": "AliExpress Coupon",
+    "tags": ["shopping", "aliexpress", "global"],
+    "Text": "10% off on any order at AliExpress.",
+    "Post_status": 1,
+    "Price": "10.00",
+    "Author": 2,
+    "prize": "ALI10OFF"
+  },
+  {
+    "Title": "Uber Eats Discount",
+    "tags": ["ubereats", "food", "delivery"],
+    "Text": "15% discount on first food delivery with Uber Eats.",
+    "Post_status": 3,
+    "Price": "15.00",
+    "Author": 3,
+    "prize": "EATS15FIRST"
+  },
+  {
+    "Title": "Apple Music Offer",
+    "tags": ["music", "applemusic", "subscription"],
+    "Text": "3 months of Apple Music for free.",
+    "Post_status": 2,
+    "Price": "0.00",
+    "Author": 4,
+    "prize": "AMUSIC3FREE"
+  },
+  {
+    "Title": "H&M Discount",
+    "tags": ["fashion", "h&m", "clothes"],
+    "Text": "15% off your first online order at H&M.",
+    "Post_status": 3,
+    "Price": "15.00",
+    "Author": 5,
+    "prize": "HM15STYLE"
+  },
+  {
+    "Title": "Adidas Plus Offer",
+    "tags": ["sports", "adidas", "gear"],
+    "Text": "Extra 10% off for Adidas members.",
+    "Post_status": 1,
+    "Price": "10.00",
+    "Author": 1,
+    "prize": "ADIEXTRA10"
+  },
+  {
+    "Title": "KFC Meal Deal",
+    "tags": ["food", "kfc", "fastfood"],
+    "Text": "Buy 2 meals and get 1 free at KFC.",
+    "Post_status": 2,
+    "Price": "9.00",
+    "Author": 2,
+    "prize": "KFCMEAL3X2"
+  },
+  {
+    "Title": "McDonald's Promo",
+    "tags": ["mcdonalds", "food", "deal"],
+    "Text": "Free fries with any burger at McDonald's.",
+    "Post_status": 3,
+    "Price": "5.00",
+    "Author": 3,
+    "prize": "MCDFREEFRY"
+  },
+  {
+    "Title": "Steam Wallet Bonus",
+    "tags": ["steam", "gaming", "wallet"],
+    "Text": "Get $5 bonus when adding $25 to your Steam Wallet.",
+    "Post_status": 1,
+    "Price": "5.00",
+    "Author": 4,
+    "prize": "STEAM5BONUS"
+  },
+  {
+    "Title": "Spotify Duo Offer",
+    "tags": ["spotify", "music", "duo"],
+    "Text": "50% off Spotify Duo subscription for 3 months.",
+    "Post_status": 2,
+    "Price": "7.00",
+    "Author": 5,
+    "prize": "SPOTDUO50"
+  },
+  {
+    "Title": "Nike Membership Bonus",
+    "tags": ["nike", "sport", "member"],
+    "Text": "Exclusive 10% discount for Nike Members.",
+    "Post_status": 3,
+    "Price": "10.00",
+    "Author": 1,
+    "prize": "NIKEMEMBER10"
+  },
+  {
+    "Title": "Disney+ Free Month",
+    "tags": ["disney", "streaming", "movies"],
+    "Text": "Free 1-month Disney+ subscription for new accounts.",
+    "Post_status": 1,
+    "Price": "0.00",
+    "Author": 2,
+    "prize": "DISNEY1FREE"
+  },
+  {
+    "Title": "Target Discount Code",
+    "tags": ["target", "shopping", "coupon"],
+    "Text": "10% off all online orders at Target.",
+    "Post_status": 2,
+    "Price": "10.00",
+    "Author": 3,
+    "prize": "TARGET10SHOP"
+  },
+  {
+    "Title": "Uber Referral",
+    "tags": ["uber", "referral", "rides"],
+    "Text": "Invite friends and get $5 credit per referral.",
+    "Post_status": 3,
+    "Price": "5.00",
+    "Author": 4,
+    "prize": "UBERFRIEND5"
+  },
+  {
+    "Title": "Domino's Pizza Deal",
+    "tags": ["food", "pizza", "dominos"],
+    "Text": "Buy 1 large pizza, get the second for free at Domino's.",
+    "Post_status": 2,
+    "Price": "15.00",
+    "Author": 5,
+    "prize": "DOMINOS2X1"
+  },
+  {
+    "Title": "Google Play Voucher",
+    "tags": ["google", "apps", "voucher"],
+    "Text": "Get $5 credit on Google Play Store.",
+    "Post_status": 3,
+    "Price": "5.00",
+    "Author": 1,
+    "prize": "GPLAY5FREE"
+  },
+  {
+    "Title": "Netflix Family Deal",
+    "tags": ["netflix", "streaming", "family"],
+    "Text": "Save 25% on Netflix Family subscription.",
+    "Post_status": 1,
+    "Price": "25.00",
+    "Author": 2,
+    "prize": "NETFLIX25"
+  },
+  {
+    "Title": "Booking Summer Offer",
+    "tags": ["booking", "travel", "hotels"],
+    "Text": "15% off all summer hotel reservations at Booking.com.",
+    "Post_status": 2,
+    "Price": "15.00",
+    "Author": 3,
+    "prize": "BOOKSUMMER15"
+  },
+  {
+    "Title": "PlayStation Plus Code",
+    "tags": ["gaming", "playstation", "subscription"],
+    "Text": "Get 1 month of PlayStation Plus for free.",
+    "Post_status": 3,
+    "Price": "0.00",
+    "Author": 4,
+    "prize": "PSPLUSFREE1M"
+  },
+  {
+    "Title": "AliExpress Flash Sale",
+    "tags": ["shopping", "aliexpress", "sale"],
+    "Text": "Extra 10% off during Flash Sale at AliExpress.",
+    "Post_status": 1,
+    "Price": "10.00",
+    "Author": 5,
+    "prize": "ALIFLASH10"
+  },
+  {
+    "Title": "Adidas Summer Sale",
+    "tags": ["adidas", "sports", "sale"],
+    "Text": "Up to 30% off all summer collection items.",
+    "Post_status": 2,
+    "Price": "30.00",
+    "Author": 1,
+    "prize": "ADISUMMER30"
+  },
+  {
+    "Title": "Walmart Black Friday",
+    "tags": ["walmart", "blackfriday", "sale"],
+    "Text": "Up to 50% off electronics during Black Friday.",
+    "Post_status": 3,
+    "Price": "50.00",
+    "Author": 2,
+    "prize": "WALBLACK50"
+  }
+]

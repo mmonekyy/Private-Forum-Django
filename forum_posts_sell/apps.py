@@ -9,6 +9,7 @@ def check_posts_date():
     print('Checking posts date...')
     curent_time = timezone.now()
     sell_post.objects.filter(Post_life__lt=curent_time).delete()
+    
 
 class ForumPostsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -16,6 +17,7 @@ class ForumPostsConfig(AppConfig):
     
     def ready(self):
         if os.environ.get('RUN_MAIN') == 'true':
+            print('## Starting scheduler for checking posts date... ##')
             self.schedulers = BackgroundScheduler()
             self.schedulers.start()
             self.schedulers.add_job(check_posts_date, 'cron', hour=12, minute=0)

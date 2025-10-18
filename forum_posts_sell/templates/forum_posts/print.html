@@ -1,16 +1,45 @@
-{%for user_post in user_posts%}
-<section>
-{{user_post.Title}}
-</br>
-{{user_post.Text}}
-<form method="post" action="{% url 'posts_sell:delete_post' user_post.id %}">
-    {% csrf_token %}
-    <input type="submit" value="Delete">
-</form>
-<form method="post" action="{% url 'posts_sell:edit_post' user_post.id %}">
-    {% csrf_token %}
-    <input type="submit" value="Edit">
-</form>
-</section>
-</br></br>  
-{% endfor %}
+{% load static %}
+{% include "navbar.html" %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/MyProducts.css' %}">
+
+<main class="my-products">
+  {% for user_post in page_obj %}
+  <section class="post-card">
+    <h2 class="post-title">{{ user_post.Title }}</h2>
+    <p class="post-text">{{ user_post.Text|truncatechars:70 }}</p>
+
+    <div class="section-buttons">
+      <form method="post" action="{% url 'posts_sell:delete_post' user_post.id %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+      </form>
+
+      <form method="post" action="{% url 'posts_sell:edit_post' user_post.id %}">
+        {% csrf_token %}
+        <input type="submit" value="Edit">
+      </form>
+    </div>
+  </section>
+  {% empty %}
+  <p class="no-posts">You haven’t created any posts yet.</p>
+  {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</main>

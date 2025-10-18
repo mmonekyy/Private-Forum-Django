@@ -1,10 +1,21 @@
-{{item.User.username}}<br>
-{{item.foring_key_buy_item.foring_key_sell_post.Title}}<br>
-{{item.foring_key_buy_item.Text}}<br>
+{% load static %}
+{% include "navbar.html" %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/item_detail.css' %}">
 
-add opinion
-<form method="POST">
-    {% csrf_token %}
-    {{form}}
-    <button type="submit">Submit</button>
-</form>
+<main class="item-detail">
+  <section class="item-card">
+    <p class="username">@{{ item.User.username }}</p>
+    <h2>{{ item.foring_key_buy_item.foring_key_sell_post.Title }}</h2>
+    <p>{{ item.foring_key_buy_item.Text }}</p>
+  </section>
+
+  <section class="opinion-form">
+    <h3>Add your opinion</h3>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  </section>
+</main>

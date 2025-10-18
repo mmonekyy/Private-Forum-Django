@@ -1,14 +1,53 @@
-{% for Post in Posts%}
-<section>
-  {{ Post.Title }} <br />
-  {{ Post.Text|truncatechars:7 }} <br />
-  {{Post.Price}} <br />
-  {{Post.Add_date|date:"d/m/Y" }}<br />
-  <a href="{% url 'posts_sell:one_product' Post.id %}">
-  <button type="button">View Details</button>
+{% include "navbar.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/marketplace.css' %}">
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<body>
+<section id = "top_menu">
+  <a href="{% url 'posts_sell:print_post' %}">
+    My Products
   </a>
-  <br /><br />
+  <a href="{% url 'posts_sell:create_post' %}">
+    Create Product
+  </a>
+  <a href="{% url 'posts_sell:user_items' %}">
+    Buyed Items
+  </a>
+</section>
+<form method="get" action="." id ="search_form">
+  {{ form }}
+  <button type="submit">Search</button>
+</form>
+{% for Post in Posts%}
+<section class="product_card">
+  <h2>{{ Post.Title }}</h2>
+  <p class="short_text">{{ Post.Text|truncatechars:70 }}</p>
+  <div class="product_meta">
+    <span class="price">{{ Post.Price }} $</span>
+    <span class="date">{{ Post.Add_date|date:"d/m/Y" }}</span>
+  </div>
+  <a href="{% url 'posts_sell:one_product' Post.id %}">
+    <button type="button">View Details</button>
+  </a>
 </section>
 {% empty %}
 <h3>No Products Available</h3>
 {% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if Posts.has_previous %}
+      <a href="?{{ query.urlencode }}&page=1">&laquo; first</a>
+      <a href="?{{ query.urlencode }}&page={{ Posts.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ Posts.number }} of {{ Posts.paginator.num_pages }}.
+    </span>
+
+    {% if Posts.has_next %}
+      <a href="?{{ query.urlencode }}&page={{ Posts.next_page_number }}">next</a>
+      <a href="?{{ query.urlencode }}&page={{ Posts.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+</body>
