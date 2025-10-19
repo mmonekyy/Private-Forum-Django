@@ -4,6 +4,12 @@
 <link rel="stylesheet" href="{% static 'css/item_detail.css' %}">
 
 <main class="item-detail">
+  {% if message %}
+  <div class="message {% if 'saved' in message|lower %}success{% else %}error{% endif %}">
+    {{ message }}
+  </div>
+  {% endif %}
+
   <section class="item-card">
     <p class="username">@{{ item.User.username }}</p>
     <h2>{{ item.foring_key_buy_item.foring_key_sell_post.Title }}</h2>

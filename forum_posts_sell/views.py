@@ -194,30 +194,44 @@ def user_items(request):
         return redirect("/register/")
     
 def item_detail(request, id):
-    if request.user.is_authenticated:
-        user = request.user
-        try:
-            item = user_bought_items.objects.select_related("foring_key_buy_item").get(User=user, id=id)
-            post_rate = sell_post.objects.filter(
-                buyed_item__user_bought_items__User=user,
-                buyed_item__user_bought_items__id=id
-            ).get()
-            if request.method == "POST":
-                opinionn = opinion.objects.filter(Author=user,foring_key_buy_item=post_rate)
-                print(opinionn)
-                if opinionn.exists():
-                   return HttpResponse("You added opinion")
+    if not request.user.is_authenticated:
+        return redirect("/register/")
+
+    user = request.user
+    try:
+        item = user_bought_items.objects.select_related("foring_key_buy_item").get(User=user, id=id)
+        post_rate = sell_post.objects.filter(
+            buyed_item__user_bought_items__User=user,
+            buyed_item__user_bought_items__id=id
+        ).get()
+        form = Opinion()
+        message = None
+
+        if request.method == "POST":
+            opinionn = opinion.objects.filter(Author=user, foring_key_buy_item=post_rate)
+            if opinionn.exists():
+                message = "You have already rated this item."
+            else:
                 form = Opinion(request.POST)
                 if form.is_valid():
                     rate = form.cleaned_data["rate"]
-                    print(rate)
                     if rate < 1 or rate > 5:
-                        return HttpResponse('Rate must be between 1 and 5.')
-                    opinion.objects.create(foring_key_buy_item=post_rate, Author=request.user, Rate=rate)
-            else:
-                form = Opinion()
-            return render(request, "forum_posts/item_detail.html", {"item": item, "form": form})
-        except user_bought_items.DoesNotExist:
-            return redirect("posts_sell:user_items")
-    else:
-        return redirect("/register/")
+                        message = "Rate must be between 1 and 5."
+                    else:
+                        opinion.objects.create(
+                            foring_key_buy_item=post_rate,
+                            Author=request.user,
+                            Rate=rate
+                        )
+                        message = "Your rating has been saved."
+        else:
+            form = Opinion()
+
+        return render(
+            request,
+            "forum_posts/item_detail.html",
+            {"item": item, "form": form, "post_rate": post_rate, "message": message},
+        )
+
+    except user_bought_items.DoesNotExist:
+        return redirect("posts_sell:user_items")
