@@ -1,0 +1,18 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin_panel.css' %}">
+<body>
+<main>
+<h1>Admin Panel</h1><p>Welcome, {{ username }}</p><br>
+<section id="admin_links">
+Post Management Options:
+<br>
+<a href="{% url 'forum_sellpost' %}">Check Sell Posts</a>
+<br>
+Post Management Options:
+<br>
+<a href="{% url 'forum_post' %}">Check Posts</a>
+</section>
+</main>
+</body>
