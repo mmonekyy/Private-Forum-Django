@@ -1,0 +1,23 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/post_check_one.css' %}">
+<main>
+<h2>Sell Posts to Verify</h2>
+<div class="post_container">
+    <h3>{{ post.Title }}</h3>
+    <p><strong>Author:</strong> {{ post.Author.username }}</p>
+    <p><strong>Description:</strong> {{ post.Description }}</p>
+    <p><strong>Price:</strong> ${{ post.Price }}</p>
+    <p><strong>Contact Info:</strong> {{ post.Contact_info }}</p>
+    <p><strong>Added on:</strong> {{ post.Add_date }}</p>
+    <div class="post_images">
+        {% for image in post.Images.all %}
+            <img src="{{ image.image.url }}" alt="Post Image" class="post_image">
+        {% endfor %}
+    </div>
+    <div class="action_buttons">
+        <a href="{% url 'approve_post_sell' post.id %}" class="approve_button">Approve</a>
+        <a href="{% url 'delete_post_sell' post.id %}" class="delete_button">Delete</a>
+    </div>
+</main>
