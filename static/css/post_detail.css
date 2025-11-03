@@ -4,7 +4,6 @@ main {
     align-items: center;
     justify-content: flex-start;
     padding-top: 8vh;
-    min-height: 100vh;
 }
 
 .post {
@@ -163,4 +162,33 @@ main {
     background-color: rgba(0, 100, 255, 0.6);
     border-radius: 8px;
     margin: 0 5px;
+}
+#delete_button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #e63946;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+#delete_button:hover {
+    background-color: #ff0000;
+    transform: translateY(-1px);
+}
+
+#delete_button:active {
+    background-color: #b71c1c;
+    transform: translateY(0);
+}
+#delete_button a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
 }

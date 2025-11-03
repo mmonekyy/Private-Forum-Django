@@ -11,11 +11,6 @@
     <p><strong>Price:</strong> ${{ post.Price }}</p>
     <p><strong>Contact Info:</strong> {{ post.Contact_info }}</p>
     <p><strong>Added on:</strong> {{ post.Add_date }}</p>
-    <div class="post_images">
-        {% for image in post.Images.all %}
-            <img src="{{ image.image.url }}" alt="Post Image" class="post_image">
-        {% endfor %}
-    </div>
     <div class="action_buttons">
         <a href="{% url 'approve_post_sell' post.id %}" class="approve_button">Approve</a>
         <a href="{% url 'delete_post_sell' post.id %}" class="delete_button">Delete</a>
