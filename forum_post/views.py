@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.core.paginator import Paginator
 
-# Create your views here.
 def create(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
