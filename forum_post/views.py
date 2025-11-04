@@ -4,7 +4,7 @@ from .models import ForumPost , Comment , Category
 from forum_users.models import CustomUser
 from django.shortcuts import redirect
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 from django.core.paginator import Paginator
 
 def create(request):
@@ -18,7 +18,7 @@ def create(request):
                 category_form = form.cleaned_data['category']
                 category = Category.objects.filter(Name=category_form)
                 if not category.exists():
-                    return HttpResponse('Bad category')
+                    return HttpResponseBadRequest('bad category')
                 Author = request.user
                 post = ForumPost.objects.create(
                     Title=title,
@@ -119,7 +119,7 @@ def add_comment(request, post_id):
         if request.method == "POST":
             test = request.POST.get('comment')
             Comment.objects.create(Post=post,Author=request.user,Content=test)
-            
             return redirect("view_post", post_id=post_id)
     else:
         return redirect("/register/")
+    
