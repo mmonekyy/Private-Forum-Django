@@ -12,7 +12,6 @@ urlpatterns = [
     path('sellpost/<int:post_id>/', get_one_post_sell, name='one_post_sell'),
     path('sellpost/approve/<int:post_id>/', approve_post_sell, name='approve_post_sell'),
     path('sellpost/delete/<int:post_id>/', delete_post_sell, name='delete_post_sell'),
-    #########################################################
     path('post/', check_post, name='forum_post'),
     path('post/<int:post_id>/', get_one_post, name='one_post'),
     path('post/delete/<int:post_id>/', delete_post, name='delete'),

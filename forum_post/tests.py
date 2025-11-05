@@ -57,6 +57,7 @@ class ForumPostsSellTests(TestCase):
         post = ForumPost.objects.get(Title='Test Post')
         post_del = self.client.post(f'Delete/{post.id}/')
         self.assertEqual(post_del.status_code, 404)
+        
     def test_add_comment(self):
         category = Category.objects.create(Name='General')
         post = ForumPost.objects.create(
