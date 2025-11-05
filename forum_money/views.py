@@ -3,18 +3,12 @@ from forum_users.models import CustomUser
 from .models import Button
 import datetime
 from django.utils import timezone
-from django.http import HttpResponse
+from django.http import HttpResponseBadRequest
 import random
-# Create your views here.
-from django.utils import timezone
-import datetime, random
-from django.http import HttpResponse
-from django.shortcuts import render
-from .models import Button, CustomUser
 
 def points(request):
     if not request.user.is_authenticated:
-        return HttpResponse('user not authenticated')
+        return HttpResponseBadRequest('user not authenticated')
 
     def money_User(radomint_1, randomint_2, button_object):
         obj = button_object.get()
@@ -58,7 +52,8 @@ def points(request):
 
 # add paypal payments 
 def ranks(request):
-
+    if not request.user.is_authenticated:
+            return HttpResponseBadRequest('user not authenticated')
     return render(request, 'forum_money/ranks.html')
 
 def leaderboard(request):
