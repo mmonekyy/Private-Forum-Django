@@ -1,20 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from forum_users.models import CustomUser
-from .models import Button
+from .models import Button, Vips
 import datetime
 from django.utils import timezone
 from django.http import HttpResponseBadRequest
 import random
+import paypalrestsdk
+from django.urls import reverse
 
 def points(request):
     if not request.user.is_authenticated:
         return HttpResponseBadRequest('user not authenticated')
 
-    def money_User(radomint_1, randomint_2, button_object):
+    def money_User(randomint_1, randomint_2, button_object):
         obj = button_object.get()
         obj.next_roll = timezone.now() + datetime.timedelta(hours=1)
         obj.save()
-        money = random.randint(radomint_1, randomint_2)
+        money = random.randint(randomint_1, randomint_2)
         user = CustomUser.objects.get(username=request.user)
         user.user_money += money
         user.save()
@@ -22,10 +24,7 @@ def points(request):
 
     def button_verifi(button_object):
         test = button_object.get().next_roll
-        if test is None or test <= timezone.now():
-            return True
-        else:
-            return False
+        return test is None or test <= timezone.now()
 
     but = Button.objects.filter(user=request.user)
     if not but.exists():
@@ -50,12 +49,117 @@ def points(request):
         "current_money": CustomUser.objects.get(username=request.user).user_money
     })
 
-# add paypal payments 
 def ranks(request):
     if not request.user.is_authenticated:
-            return HttpResponseBadRequest('user not authenticated')
+        return HttpResponseBadRequest('user not authenticated')
     return render(request, 'forum_money/ranks.html')
 
+
+# 🔹 Uniwersalna funkcja do tworzenia płatności PayPal
+def create_paypal_payment(request, amount, description):
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {"payment_method": "paypal"},
+        "redirect_urls": {
+            "return_url": request.build_absolute_uri(reverse('execute_payment')),
+            "cancel_url": request.build_absolute_uri(reverse('payment_failed')),
+        },
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": description,
+                    "sku": "item",
+                    "price": f"{amount:.2f}",
+                    "currency": "USD",
+                    "quantity": 1
+                }]
+            },
+            "amount": {"total": f"{amount:.2f}", "currency": "USD"},
+            "description": description
+        }]
+    })
+    return payment
+
+
+def buy_Vip(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
+
+    payment = create_paypal_payment(request, 10.00, "VIP Membership")
+
+    if payment.create():
+        Vips.objects.create(
+            user=request.user,
+            payment_id=payment.id,
+            amount=10,
+            status='created'
+        )
+        for link in payment.links:
+            if link.rel == "approval_url":
+                return redirect(link.href)
+    else:
+        print(payment.error)
+        return render(request, 'forum_money/error.html', {"error": payment.error})
+
+
+def buy_Super_Vip(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
+
+    payment = create_paypal_payment(request, 20.00, "Super VIP Membership")
+
+    if payment.create():
+        Vips.objects.create(
+            user=request.user,
+            payment_id=payment.id,
+            amount=20,
+            status='created'
+        )
+        for link in payment.links:
+            if link.rel == "approval_url":
+                return redirect(link.href)
+    else:
+        print(payment.error)
+        return render(request, 'forum_money/error.html', {"error": payment.error})
+
+def execute_payment(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
+
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    vip_payment = get_object_or_404(Vips, payment_id=payment_id, user=request.user)
+    payment = paypalrestsdk.Payment.find(payment_id)
+
+    if payment.execute({"payer_id": payer_id}):
+        vip_payment.status = 'approved'
+        vip_payment.payer_id = payer_id
+        vip_payment.save()
+        user = request.user
+        if vip_payment.amount == 10:
+            user.user_type = CustomUser.UserType.VIP
+        elif vip_payment.amount == 20:
+            user.user_type = CustomUser.UserType.SVIP
+        user.save()
+        return render(request, 'forum_money/success.html', {"vip": vip_payment})
+    else:
+        vip_payment.status = 'failed'
+        vip_payment.save()
+        return render(request, 'forum_money/error.html', {"error": payment.error})
+
+def payment_checkout(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
+    return render(request, 'forum_money/checkout.html')
+
+def payment_failed(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
+    return render(request, 'forum_money/payment_failed.html')
+
 def leaderboard(request):
+    if not request.user.is_authenticated:
+        return HttpResponseBadRequest('user not authenticated')
     bestusers = CustomUser.objects.all().order_by('-user_money')[:10]
-    return render(request, 'forum_money/leaderboard.html',{"BestUsers":bestusers})
+    return render(request, 'forum_money/leaderboard.html', {"BestUsers": bestusers})
