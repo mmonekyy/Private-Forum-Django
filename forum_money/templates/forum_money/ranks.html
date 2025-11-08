@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/ranks.css' %}">
+<body>
+    {% include 'navbar.html' %}
+    <main>
+        <section id="Vip" class="rank-section">
+            <div class="rank-card">
+                <h2>VIP Member</h2>
+                <div class="rank-benefits">
+                    <h1>You suppot our forum</h1><br>
+                    <h2>Price 10</h2>
+                <button><a href={% url 'buy_Vip_payment'%}>Buy</a></button>
+            </div>
+        </section>
+        
+        <section id="Super_Vip" class="rank-section">
+            <div class="rank-card">
+                <h2>SUPER VIP Member</h2>
+                <div class="rank-benefits">
+                    <h1>You suppot our forum</h1>
+                    <h2>Price 20</h2>
+                </div>
+            </div>
+            <button><a href={% url 'buy_Super_Vip_payment'%}>Buy</a></button>
+        </section>
+    </main>
+</body>

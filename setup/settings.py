@@ -13,11 +13,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -159,3 +159,17 @@ if 'test' in sys.argv:
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+try:
+    import paypalrestsdk    
+    mode = os.getenv('PAYPAL_MODE')
+    client_id = os.getenv('PAYPAL_CLIENT_ID')
+    client_secret = os.getenv('PAYPAL_CLIENT_SECRET')
+    paypalrestsdk.configure({
+        "mode": mode,
+        "client_id": client_id,
+        "client_secret": client_secret,
+    })
+except FileExistsError:
+    print("file .env not exist")
+except Exception as Error:
+    print(Error)
