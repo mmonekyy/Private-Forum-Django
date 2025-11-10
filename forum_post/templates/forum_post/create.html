@@ -2,9 +2,23 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
 <link rel="stylesheet" href="{% static 'css/create_post.css' %}">
+<link rel="stylesheet" href="{% static 'css/error_banner.css' %}">
+
+{% if error %}
+<div id="error-banner" class="show">⚠️ {{ error }}</div>
+{% endif %}
+
 <form action="" method="post">
-{% csrf_token %}
-{{form}}
-<button type="submit">Submit</button>
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Submit</button>
 </form>
 <input type="button" value="Go Back" onclick="history.back()">
+
+<script>
+    if (document.getElementById('error-banner')) {
+        setTimeout(() => {
+            document.getElementById('error-banner').classList.remove('show');
+        }, 4000);
+    }
+</script>

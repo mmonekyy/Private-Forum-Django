@@ -2,6 +2,12 @@
 {% include "navbar.html" %}
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
 <link rel="stylesheet" href="{% static 'css/edit_sell.css' %}">
+<link rel="stylesheet" href="{% static 'css/error_banner.css' %}">
+
+{% if error %}
+<div id="error-banner" class="show">⚠️ {{ error }}</div>
+{% endif %}
+
 <form method="post">
   {% csrf_token %}
   <label for="id_title">Enter Title:</label><br />
@@ -59,3 +65,11 @@
   {{ information_table.4 }}</textarea><br /><br />
   <button type="submit">Submit</button>
 </form>
+
+<script>
+    if (document.getElementById('error-banner')) {
+        setTimeout(() => {
+            document.getElementById('error-banner').classList.remove('show');
+        }, 4000);
+    }
+</script>

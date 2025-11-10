@@ -17,10 +17,10 @@ class MoneyViewTests(TestCase):
     def test_points_view_unauthenticated(self):
         self.client.logout()
         response = self.client.get('/Money/')
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 302)
         response_two = self.client.post('/Money/ranks/')
-        self.assertEqual(response_two.status_code, 400)
+        self.assertEqual(response_two.status_code, 302)
         response_three = self.client.post('/Money/leaderboard/')
-        self.assertEqual(response_three.status_code, 400)
+        self.assertEqual(response_three.status_code, 302)
     
     

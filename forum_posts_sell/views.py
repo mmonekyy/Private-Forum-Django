@@ -67,16 +67,20 @@ def create_post(request):
                 Tags = form.cleaned_data["tags"]
                 Price = form.cleaned_data["price"]
                 Item = form.cleaned_data["item"]
+                error = None
                 if Price < 0:
-                    return HttpResponse('Price cannot be negative')
-                if len(Title) < 5:
-                    return HttpResponse('Title is too short')
-                if len(Title) > 100:
-                    return HttpResponse('Title is too long')
-                if len(Tags) > 50:
-                    return HttpResponse('Tags are too long')
-                if len(Tags) < 3:
-                    return HttpResponse('Tags are too short')
+                    error = "Price cannot be negative"
+                elif len(Title) < 5:
+                    error = "Title is too short"
+                elif len(Title) > 100:
+                    error = "Title is too long"
+                elif len(Tags) > 50:
+                    error = "Tags are too long"
+                elif len(Tags) < 3:
+                    error = "Tags are too short"
+                    
+                if error:
+                    return render(request, "forum_posts/create.html", {"form": form, "error": error})
                 Message = form.cleaned_data["text"]
                 print(Title,Tags,Message,Price)
                 post = sell_post.objects.create(Title=Title,Text=Message,Author=request.user, Price=Price)
@@ -110,16 +114,24 @@ def edit_post(request, id):
                     Tags = form.cleaned_data["tags"]
                     Price = form.cleaned_data["price"]
                     Item = form.cleaned_data["item"]
+                    error = None
                     if Price < 0:
-                        return HttpResponse('Price cannot be negative')
-                    if len(Title) < 5:
-                        return HttpResponse('Title is too short')
-                    if len(Title) > 100:
-                        return HttpResponse('Title is too long')
-                    if len(Tags) > 50:
-                        return HttpResponse('Tags are too long')
-                    if len(Tags) < 3:
-                        return HttpResponse('Tags are too short')
+                        error = "Price cannot be negative"
+                    elif len(Title) < 5:
+                        error = "Title is too short"
+                    elif len(Title) > 100:
+                        error = "Title is too long"
+                    elif len(Tags) > 50:
+                        error = "Tags are too long"
+                    elif len(Tags) < 3:
+                        error = "Tags are too short"
+                        
+                    if error:
+                        return render(request, "forum_posts/edit.html", {
+                            "form": form, 
+                            "error": error,
+                            "information_table": information_table
+                        })
                     Message = form.cleaned_data["text"]
                     Post_user.update(Title=Title, Text=Message, Price=Price)
                     tags_list = [tag.strip() for tag in Tags.split(',')]
@@ -131,7 +143,7 @@ def edit_post(request, id):
                 form = Create_Form(initial={"title": Title, "text": Text, "price": Price, "tags": ', '.join(str(tag) for tag in tags)})
             return render(request, "forum_posts/edit.html", {"information_table": information_table})
         else:
-            return HttpResponse('Post not found or you are not the author.')
+            return render(request, "forum_posts/error.html", {"error_message": "Post not found or you are not the author."})
     else:
         return redirect("/register/")
 
@@ -143,7 +155,7 @@ def delete_post(request, id):
                 post.delete()
                 return redirect('posts_sell:print_post')
             else:
-                return HttpResponse('Post not found or you are not the author.')
+                return render(request, "forum_posts/error.html", {"error_message": "Post not found or you are not the author."})
     else:
         return redirect("/register/")
 
@@ -151,12 +163,11 @@ def delete_post(request, id):
 def marketplace_one_product(request, id):
     if request.user.is_authenticated:
         Post = sell_post.objects.filter(id=id,Post_status=3).get()
-        print(Post)
         if Post:
             money = request.user.user_money
             return render(request, "forum_posts/marketplace_one_product.html", {"Post": Post,"money": money})
         else:
-            return HttpResponse('Post not found.')
+            return render(request, "forum_posts/error.html", {"error_message": "Post not found."})
     else:
         return redirect("/register/")
     
@@ -166,9 +177,9 @@ def buy_product(request, id):
         buyed_item_fg = buyed_item.objects.filter(foring_key_sell_post=id).get()
         if Post:
             if request.user == Post.Author:
-                return HttpResponse('You cannot buy your own product.')
+                return render(request, "forum_posts/error.html", {"error_message": "You cannot buy your own product."})
             if user_bought_items.objects.filter(foring_key_buy_item=buyed_item_fg, User=request.user):
-                return HttpResponse('You have already purchased this product.')
+                return render(request, "forum_posts/error.html", {"error_message": "You have already purchased this product."})
             if request.user.user_money >= Post.Price:
                 request.user.user_money -= Post.Price
                 request.user.save()
@@ -176,9 +187,9 @@ def buy_product(request, id):
                 CustomUser.objects.filter(id=Post.Author.id).update(user_money=Post.Author.user_money + Post.Price)
                 return redirect("posts_sell:marketplace")
             else:
-                return HttpResponse('Insufficient funds to complete the purchase.')
+                return render(request, "forum_posts/error.html", {"error_message": "Insufficient funds to complete the purchase."})
         else:
-            return HttpResponse('Post not found.')
+            return render(request, "forum_posts/error.html", {"error_message": "Post not found."})
     else:
         return redirect("/register/")
     
