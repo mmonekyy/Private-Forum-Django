@@ -13,7 +13,22 @@
 </section>
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
 <link rel="stylesheet" href="{% static 'css/create_post_sell.css' %}">
+<link rel="stylesheet" href="{% static 'css/error_banner.css' %}">
+
+{% if error %}
+<div id="error-banner" class="show">⚠️ {{ error }}</div>
+{% endif %}
+
 <form method="POST" action="{% url 'posts_sell:create_post' %}">
-  {% csrf_token %} {{ form }}
+  {% csrf_token %} 
+  {{ form }}
   <input type="submit" value="Submit" />
 </form>
+
+<script>
+    if (document.getElementById('error-banner')) {
+        setTimeout(() => {
+            document.getElementById('error-banner').classList.remove('show');
+        }, 4000);
+    }
+</script>

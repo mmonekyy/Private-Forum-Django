@@ -1,10 +1,12 @@
 {% include 'navbar.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
-
+<link rel="stylesheet" href="{% static 'css/forum_main.css' %}">
+<main>
 <div class="container">
     <h1>Welcome to the Private Forum</h1>
     <p>This is a secure and private forum where you can discuss various topics with other members.</p>
+    
     <h2>Forum Rules</h2>
     <ul>
         <li>Be respectful to other members.</li>
@@ -12,6 +14,64 @@
         <li>Keep discussions relevant to the topic.</li>
         <li>Report any inappropriate behavior to the moderators.</li>
     </ul>
+    
     <h2>Getting Started</h2>
     <p>To get started, please register for an account or log in if you already have one. Once logged in, you can create new threads, reply to existing ones, and participate in discussions.</p>
     <p>We hope you enjoy your time here at the Private Forum!</p>
+</div>
+<div class="featured-sections"> 
+    <div class="section">
+        <h2>🌟 Best Rated Marketplace Items</h2>
+        {% if best_rated_posts %}
+            {% for post in best_rated_posts %}
+                <div class="post-card">
+                    <a href="{% url 'posts_sell:one_product' post.id %}" class="post-title">{{ post.Title }}</a>
+                    <div class="post-meta">
+                        <span class="rating">Rating: {{ post.avg_rating|floatformat:1 }} ⭐</span><br>
+                        <span class="price">Price: ${{ post.Price }}</span><br>
+                        <span class="count">Opinions: {{ post.rating_count }}</span><br>
+                        <span class="timestamp">Posted by {{ post.Author }} on {{ post.Add_date|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts">No rated posts available</p>
+        {% endif %}
+    </div>
+    <div class="section">
+        <h2>💀 Worst Rated Marketplace Items</h2>
+        {% if worst_rated_posts %}
+            {% for post in worst_rated_posts %}
+                <div class="post-card bad">
+                    <a href="{% url 'posts_sell:one_product' post.id %}" class="post-title">{{ post.Title }}</a>
+                    <div class="post-meta">
+                        <span class="rating">Rating: {{ post.avg_rating|floatformat:1 }} ⭐</span><br>
+                        <span class="price">Price: ${{ post.Price }}</span><br>
+                        <span class="count">Opinions: {{ post.rating_count }}</span><br>
+                        <span class="timestamp">Posted by {{ post.Author }} on {{ post.Add_date|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts">No low-rated posts available</p>
+        {% endif %}
+    </div>
+    <div class="section">
+        <h2>📝 Latest Forum Posts</h2>
+        {% if latest_posts %}
+            {% for post in latest_posts %}
+                <div class="post-card">
+                    <a href="{% url 'view_post' post.id %}" class="post-title">{{ post.Title }}</a>
+                    <div class="post-meta">
+                        <span class="category">Category: {{ post.Category.Name }}</span><br>
+                        <span class="count">Comments: {{ post.comment_count }}</span><br>
+                        <span class="timestamp">Posted by {{ post.Author }} on {{ post.Created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts">No forum posts available</p>
+        {% endif %}
+    </div>
+</div>
+</main>

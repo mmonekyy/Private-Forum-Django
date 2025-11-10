@@ -10,7 +10,7 @@ from django.urls import reverse
 
 def points(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
 
     def money_User(randomint_1, randomint_2, button_object):
         obj = button_object.get()
@@ -51,11 +51,9 @@ def points(request):
 
 def ranks(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
     return render(request, 'forum_money/ranks.html')
 
-
-# 🔹 Uniwersalna funkcja do tworzenia płatności PayPal
 def create_paypal_payment(request, amount, description):
     payment = paypalrestsdk.Payment({
         "intent": "sale",
@@ -83,7 +81,7 @@ def create_paypal_payment(request, amount, description):
 
 def buy_Vip(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
 
     payment = create_paypal_payment(request, 10.00, "VIP Membership")
 
@@ -104,7 +102,7 @@ def buy_Vip(request):
 
 def buy_Super_Vip(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
 
     payment = create_paypal_payment(request, 20.00, "Super VIP Membership")
 
@@ -124,7 +122,7 @@ def buy_Super_Vip(request):
 
 def execute_payment(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
 
     payment_id = request.GET.get('paymentId')
     payer_id = request.GET.get('PayerID')
@@ -150,16 +148,16 @@ def execute_payment(request):
 
 def payment_checkout(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
     return render(request, 'forum_money/checkout.html')
 
 def payment_failed(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
     return render(request, 'forum_money/payment_failed.html')
 
 def leaderboard(request):
     if not request.user.is_authenticated:
-        return HttpResponseBadRequest('user not authenticated')
+        return redirect("/register/")
     bestusers = CustomUser.objects.all().order_by('-user_money')[:10]
     return render(request, 'forum_money/leaderboard.html', {"BestUsers": bestusers})

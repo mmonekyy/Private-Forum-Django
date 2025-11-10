@@ -1,0 +1,124 @@
+.featured-sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    margin: 4vh auto;
+    max-width: 1200px;
+    padding: 2rem;
+}
+
+.section {
+    background: rgba(0, 38, 84, 0.75);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 100, 255, 0.3);
+    padding: 2rem;
+    flex: 1 1 45%;
+    min-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 150, 255, 0.4);
+}
+
+.section h2 {
+    color: #a8d8ff;
+    border-bottom: 2px solid #3399ff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+}
+
+.post-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 4px solid #3399ff;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.post-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.02);
+}
+
+.post-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #66ccff;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 6px rgba(100, 200, 255, 0.4);
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #d9ecff;
+}
+
+.post-meta .rating {
+    color: #ffdd57;
+    font-weight: 500;
+}
+
+.post-meta .price {
+    color: #7dd9ff;
+}
+
+.no-posts {
+    font-style: italic;
+    color: #a8c6ff;
+}
+
+.container {
+    background: rgba(0, 50, 100, 0.7);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 120, 255, 0.3);
+    margin: 5vh auto;
+    max-width: 900px;
+    padding: 2.5rem;
+    line-height: 1.6;
+}
+
+.container h1 {
+    color: #a8d8ff;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+    margin-bottom: 1.5rem;
+}
+
+.container h2 {
+    color: #66bfff;
+    border-left: 4px solid #3399ff;
+    padding-left: 0.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.container p, .container li {
+    color: #e8f5ff;
+}
+
+.container ul {
+    list-style-type: square;
+    padding-left: 2rem;
+}
+
+.container li {
+    margin-bottom: 0.5rem;
+}
+
+a {
+    color: #66c2ff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+main a:hover {
+    color: #99e0ff;
+}
+

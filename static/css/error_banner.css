@@ -1,0 +1,18 @@
+#error-banner {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4b4b;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    transition: top 0.5s ease;
+    z-index: 9999;
+}
+
+#error-banner.show {
+    top: 0;
+}

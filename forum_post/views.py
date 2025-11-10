@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 
 def create(request):
     if request.user.is_authenticated:
+        error = None
         if request.method == 'POST':
             form = PostForm(request.POST)
             if form.is_valid():
@@ -16,45 +17,70 @@ def create(request):
                 content = form.cleaned_data['content']
                 tags = form.cleaned_data['tags']
                 category_form = form.cleaned_data['category']
+                
+                if len(title) >= 200:
+                    error = "Title cannot exceed 200 characters!"
+                    return render(request, 'forum_post/create.html', {"form": form, "error": error})
+                
                 category = Category.objects.filter(Name=category_form)
                 if not category.exists():
-                    return HttpResponseBadRequest('bad category')
-                Author = request.user
-                post = ForumPost.objects.create(
-                    Title=title,
-                    Content=content,
-                    Category_id=category.get().id,
-                    Author=Author
-                )
-                tags_list = [tag.strip() for tag in tags.split(',')]
-                post.tags.set(tags_list)
-                form = PostForm()              
+                    error = "Category doesn't exist"
+                    return render(request, 'forum_post/create.html', {"form": form, "error": error})
+                
+                try:
+                    post = ForumPost.objects.create(
+                        Title=title,
+                        Content=content,
+                        Category_id=category.get().id,
+                        Author=request.user
+                    )
+                    if tags:
+                        tags_list = [tag.strip() for tag in tags.split(',')]
+                        post.tags.set(tags_list)
+                    return redirect('view_post', post_id=post.id)
+                except Exception as e:
+                    error = str(e)
+                    return render(request, 'forum_post/create.html', {"form": form, "error": error})
         else:
             form = PostForm()
     else:
         return redirect("/register/")
-    return render(request, 'forum_post/create.html',{"form": form})
+    return render(request, 'forum_post/create.html', {"form": form, "error": error})
 
 def edit(request, post_id):
     if request.user.is_authenticated:
-        forum_data = ForumPost.objects.filter(id=post_id, Author=request.user).get()
-        if not forum_data:
-            return redirect("/Posts/ViewOwnPosts/")
-        tags = ','.join([tag.name for tag in forum_data.tags.all()])
-        if request.method == 'POST':
-            title = request.POST.get('title')
-            content = request.POST.get('content')
-            tags_str = request.POST.get('tags', '')
-            if title and content:
-                forum_data.Title = title
-                forum_data.Content = content
-                tags_list = [tag.strip() for tag in tags_str.split(',') if tag.strip()]
-                forum_data.tags.set(tags_list)
-                forum_data.save()
+        error = None
+        try:
+            forum_data = ForumPost.objects.filter(id=post_id, Author=request.user).get()
+            if not forum_data:
                 return redirect("/Posts/ViewOwnPosts/")
+            tags = ','.join([tag.name for tag in forum_data.tags.all()])
+            
+            if request.method == 'POST':
+                title = request.POST.get('title')
+                content = request.POST.get('content')
+                tags_str = request.POST.get('tags', '')
+                
+                if not title or not content:
+                    error = "Title and content are required!"
+                elif len(title) >= 200:
+                    error = "Title cannot exceed 200 characters!"
+                else:
+                    try:
+                        forum_data.Title = title
+                        forum_data.Content = content
+                        forum_data.save()
+                        if tags_str:
+                            tags_list = [tag.strip() for tag in tags_str.split(',') if tag.strip()]
+                            forum_data.tags.set(tags_list)
+                        return redirect("/Posts/ViewOwnPosts/")
+                    except Exception as e:
+                        error = str(e)
+        except ForumPost.DoesNotExist:
+            return redirect("/Posts/ViewOwnPosts/")
     else:
         return redirect("/register/")
-    return render(request, 'forum_post/edit.html',{"form_data": forum_data, "tags": tags})
+    return render(request, 'forum_post/edit.html', {"form_data": forum_data, "tags": tags, "error": error})
 
 def delete(request, post_id):
     if request.user.is_authenticated:
