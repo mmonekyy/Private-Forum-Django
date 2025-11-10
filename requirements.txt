@@ -1,0 +1,11 @@
+APScheduler==3.11.0
+asgiref==3.9.1
+Django==5.2.4
+django-apscheduler==0.7.0
+django-taggit==6.1.0
+pillow==11.3.0
+psycopg2==2.9.10
+python-dotenv==1.1.1
+sqlparse==0.5.3
+tzdata==2025.2
+tzlocal==5.3.1
