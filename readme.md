@@ -132,5 +132,7 @@ Head moderators also have access to **key generation**:
 
 ## Custom Commands
 ```python manage.py create_MarketPlace```
+
 ```python manage.py create_posts```
+
 ```python manage.py create_users```
