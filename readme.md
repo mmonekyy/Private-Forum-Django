@@ -18,6 +18,7 @@ PAYPAL_CLIENT_ID=""
 - [Account](#account)
 - [Marketplace](#marketplace)
 - [Admin Panel](#admin-panel)
+- [Custom Commands](#Custom-Commands)
 
 ---
 
@@ -126,3 +127,10 @@ From here, you can either **delete the entire post** along with all its comments
 Head moderators also have access to **key generation**:
 
 ![gen key admin](img/admin/genkeys.png)
+
+---
+
+## Custom Commands
+```python manage.py create_MarketPlace```
+```python manage.py create_posts```
+```python manage.py create_users```
