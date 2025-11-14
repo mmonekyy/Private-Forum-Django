@@ -2,8 +2,10 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
 <link rel="stylesheet" href="{% static 'css/all_posts.css' %}">
+<style>
+  main{padding:0px}
+</style>
 <body>
-    
 <main>
 <form method="get" action="." id ="search_form">
   {{ form.as_p }}

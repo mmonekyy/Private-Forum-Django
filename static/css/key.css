@@ -1,0 +1,125 @@
+.key-container {
+    background-color: rgba(26, 26, 26, 0.85);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+}
+
+.message {
+    text-align: center;
+    color: #00bfff;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+#user-key {
+    font-family: monospace;
+    color: #00bfff;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 1rem;
+    word-break: break-all;
+}
+
+.key-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.key-buttons button,
+.inline-form input[type="submit"],
+.link-button {
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.key-buttons button:hover,
+.inline-form input[type="submit"]:hover,
+.link-button:hover {
+    background-color: #008ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 191, 255, 0.4);
+}
+
+.key-buttons button:active,
+.inline-form input[type="submit"]:active,
+.link-button:active {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.account-button-container {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .key-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .account-button-container {
+        margin-top: 1rem;
+    }
+}
+.key-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+
+.key-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.key-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #262626;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.key-item p {
+    margin: 0;
+    font-family: monospace;
+}
+
+.generate-btn {
+    background-color: #0078ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.generate-btn:hover {
+    background-color: #005fcc;
+}

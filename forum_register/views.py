@@ -6,7 +6,6 @@ from django.contrib.auth import login, authenticate
 from django.views.decorators.http import require_GET
 import logging
 logger = logging.getLogger(__name__)
-# Create your views here.
 
 def register(request):
     if request.method == "POST":

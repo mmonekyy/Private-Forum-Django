@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="{% static 'css/account.css' %}">
 <link rel="stylesheet" href="{% static 'css/setup.css' %}">
+<link rel="stylesheet" href="{% static 'css/key.css' %}">
 <body>
 <main>
     <div class="profile-container">
@@ -27,4 +28,8 @@
         </div>
     </div>
 </main>
+<div class="account-button-container">
+<a href={%url 'Keys' %} class="link-button">Get key to forum</a>
+</div>
 </body>
+

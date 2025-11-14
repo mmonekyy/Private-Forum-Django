@@ -7,9 +7,8 @@
 <div class="post_container">
     <h3>{{ post.Title }}</h3>
     <p><strong>Author:</strong> {{ post.Author.username }}</p>
-    <p><strong>Description:</strong> {{ post.Description }}</p>
+    <p><strong>Description:</strong> {{ post.Text }}</p>
     <p><strong>Price:</strong> ${{ post.Price }}</p>
-    <p><strong>Contact Info:</strong> {{ post.Contact_info }}</p>
     <p><strong>Added on:</strong> {{ post.Add_date }}</p>
     <div class="action_buttons">
         <a href="{% url 'approve_post_sell' post.id %}" class="approve_button">Approve</a>

@@ -13,6 +13,12 @@ Post Management Options:
 Post Management Options:
 <br>
 <a href="{% url 'forum_post' %}">Check Posts</a>
+<br>
+{%if request.user.is_head_mod%}
+Generate Keys
+<br>
+<a href="{% url 'keys' %}">Generate keys</a>
+{%endif%}
 </section>
 </main>
 </body>

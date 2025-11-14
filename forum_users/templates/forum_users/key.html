@@ -1,0 +1,54 @@
+{% include "navbar.html" %}
+{% load static %}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'css/key.css' %}">
+<link rel="stylesheet" href="{% static 'css/setup.css' %}">
+
+{% if message %}
+  <p class="message">{{ message }}</p>
+{% endif %}
+
+<div class="key-container">
+  {% if User_key %}
+    {% if User_key.key %}
+      <p id="user-key" data-full="{{ User_key.key.key }}">
+        {{ User_key.key.key|truncatechars:30 }}
+      </p>
+      <div class="key-buttons">
+        <button id="copy-key-btn" onclick="copyKey()">Copy key</button>
+        <form method="post" class="inline-form">
+          {% csrf_token %}
+          <input type="submit" value="Get key">
+        </form>
+      </div>
+    {% else %}
+      <p>Your key has been used. You can generate a new key on:</p>
+      <p class="next-key-date">{{ User_key.nex_key|date:"d-m-Y H:i" }}</p>
+    {% endif %}
+  {% else %}
+    <p>You don't have a key yet. Click below to generate one:</p>
+    <form method="post" class="inline-form">
+      {% csrf_token %}
+      <input type="submit" value="Get key">
+    </form>
+  {% endif %}
+</div>
+
+<div class="account-button-container">
+  <a href="{% url 'view_account' %}" class="link-button">Account</a>
+</div>
+
+<script>
+function copyKey() {
+    const keyElement = document.getElementById("user-key");
+    if (!keyElement) return;
+
+    const keyText = keyElement.dataset.full;
+    const btn = document.getElementById("copy-key-btn");
+
+    navigator.clipboard.writeText(keyText).then(() => {
+        btn.innerText = "Copied ✅";
+        setTimeout(() => btn.innerText = "Copy key", 2000);
+    });
+}
+</script>

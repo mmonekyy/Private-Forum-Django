@@ -3,6 +3,31 @@ from django.core.paginator import Paginator
 from forum_posts_sell.models import sell_post
 from forum_post.models import ForumPost , Category , Comment
 from .forms import serch
+from forum_users.models import CustomUser
+from forum_register.models import Keys , User_gen_kay
+from django.utils.crypto import get_random_string
+
+def create_keys(request):
+    if not request.user.is_head_mod:
+        return redirect("/register/")
+
+    user = request.user
+    message = None
+    user_keys = User_gen_kay.objects.filter(User=user)
+
+    if request.method == "POST":
+        key = get_random_string(256)
+        generated_key = Keys.objects.create(key=key)
+        user_key = User_gen_kay.objects.create(User=user, key=generated_key)
+        message = "Key successfully generated!"
+    else:
+        user_key = None
+
+    return render(request, 'admin_panel/create_keys.html', {
+        "message": message,
+        "User_keys": user_keys,
+    })
+
 def verfiy_mod(request):
     if not request.user.is_authenticated:
         return redirect("/register/")
