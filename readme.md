@@ -8,7 +8,10 @@ PAYPAL_CLIENT_SECRET=""
 PAYPAL_CLIENT_ID=""
 ```
 ![register](img/vs_code/env.png)
-
+```
+pip install -r requirements.txt
+python manage.py migrate
+```
 ---
 
 ## Table of Contents
